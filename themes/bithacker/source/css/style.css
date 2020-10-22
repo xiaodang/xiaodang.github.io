@@ -389,8 +389,8 @@ h2 {
     -webkit-background-clip: border-box;
     -webkit-background-origin: padding-box;
     -webkit-background-size: cover;
-    padding: 18px 6px;
-    /* margin: -20px 0px 20px; */
+    padding: 18px 6px 0px;
+    margin: 0px 0px 10px 0px;
     color: #fff;
     border-radius: 6px 6px 0 0;
     font-size: 1.3em
