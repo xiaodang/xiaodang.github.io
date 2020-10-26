@@ -7,10 +7,30 @@ tags: macOS
 
 由于最近换了新的电脑(MacBookPro 16inch),许多开发环境需要重新配置，记录一下安装的软件。
 
-## 环境配置原则：
+- [环境配置原则](#环境配置原则)
+- [软件](#软件)
+  - [brew](#brew)
+  - [clashx](#clashx)
+  - [neofetch](#neofetch)
+  - [zsh & oh my zsh](#zsh--oh-my-zsh)
+  - [vscode](#vscode)
+  - [rectangle](#rectangle)
+  - [openinterminal-lite](#openinterminal-lite)
+  - [google-chrome](#google-chrome)
+  - [docker](#docker)
+  - [redis](#redis)
+  - [redis-cli](#redis-cli)
+  - [mysqlworkbench](#mysqlworkbench)
+  - [nvm](#nvm)
+  - [pyenv](#pyenv)
+  - [picGo](#picgo)
+- [系统设置](#系统设置)
+
+## 环境配置原则
 * 软件方便统一管理，安装、升级
 * 优先选择开源的软件
 * 尽量不污染系统环境
+
 
 ## 软件
 - - - 
