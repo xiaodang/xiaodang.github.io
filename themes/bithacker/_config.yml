@@ -63,9 +63,9 @@ swiftype_key:
 
 #valine comment (change to yours)
 valine: 
-  enable: false
-  appId: 'xxx'
-  appKey: 'xxx'
+  enable: true
+  appId: 'CBHum5579cticmvCz5yUpSh0-gzGzoHsz'
+  appKey: 'Az1yTaXRAOJOnHgP8CLAe4su'
   placeholder: "提交评论时留下邮箱收到回复后将自动通知"
   visitor: true
   avatar: 'monsterid'
