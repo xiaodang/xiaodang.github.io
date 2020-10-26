@@ -3,28 +3,10 @@ title: MacBookPro开发环境配置
 date: 2020-10-26 18:12:43
 categories: 开发工具
 tags: macOS
+toc: true
 ---
 
 由于最近换了新的电脑(MacBookPro 16inch),许多开发环境需要重新配置，记录一下安装的软件。
-
-- [环境配置原则](#环境配置原则)
-- [软件](#软件)
-  - [brew](#brew)
-  - [clashx](#clashx)
-  - [neofetch](#neofetch)
-  - [zsh & oh my zsh](#zsh--oh-my-zsh)
-  - [vscode](#vscode)
-  - [rectangle](#rectangle)
-  - [openinterminal-lite](#openinterminal-lite)
-  - [google-chrome](#google-chrome)
-  - [docker](#docker)
-  - [redis](#redis)
-  - [redis-cli](#redis-cli)
-  - [mysqlworkbench](#mysqlworkbench)
-  - [nvm](#nvm)
-  - [pyenv](#pyenv)
-  - [picGo](#picgo)
-- [系统设置](#系统设置)
 
 ## 环境配置原则
 * 软件方便统一管理，安装、升级
@@ -125,10 +107,10 @@ python的版本管理工具。由于macOS系统自带的`python`版本为2.7，�
 
 ## 系统设置
 - - -
-* `设置-触控板-开启 轻点来点按`
-* `设置-辅助功能-指针控制-触控板选项-启用三只拖拽`
-* `设置-触控板-光标与点按-查询与数据检查器 三指点按`
-* `设置-程序坞-置于屏幕左边 并 自动显示和隐藏程序坞`
+* 设置-触控板-开启 轻点来点按
+* 设置-辅助功能-指针控制-触控板选项-启用三只拖拽
+* 设置-触控板-光标与点按-查询与数据检查器 三指点按
+* 设置-程序坞-置于屏幕左边 并 自动显示和隐藏程序坞
 
 
 **注：以上的软件安装步骤仅做本人记录，完整安装需要查看官方文档，以及安装过程中的log输出。**
