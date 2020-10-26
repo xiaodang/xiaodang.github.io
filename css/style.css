@@ -446,12 +446,14 @@ em{
 }
 
 .toc {
-    font-size: 10pt;
+    font-size: 14pt;
     width: auto;
     padding: 10px;
     background: #000
 }
-
+.toc a{
+    color:#2bbc8a;
+}
 .toc .toc-title {
     font-size: 125%
 }
