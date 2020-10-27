@@ -130,6 +130,70 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2020/10/27/用JavaScript实现一个简单的编译器/" >用JavaScript实现一个简单的编译器</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2020-10-27  </div>
+		</div>
+	</div>
+	
+
+
+			<!--
+<div class="entry">
+  <div class="row">
+	
+	
+		<p>今天花了一下午时间看了一个<code>JavaScript</code>编译器的实现，并且自己亲手实现了一遍。非常简单的微型编译器，但是却包含了编译器基本的工作流程。一般我们几乎不太能接触到开发编译器工作，但是通过了解编译器的实现原理对我们还是非常有帮助。</p>
+<h2 id="编译器介绍"><a href="#编译器介绍" class="headerlink" title="编译器介绍"></a>编译器介绍</h2><p><code>compiler</code>是将一种语言转换为另外一种语言的程序。</p>
+<h2 id="编译器原理"><a href="#编译器原理" class="headerlink" title="编译器原理"></a>编译器原理</h2><p>大部分编译器的工作可以分为三个阶段：</p>
+<ol>
+<li>Parsing解析 - 解析分为词法分析(<code>Lexical Analysis</code>)和语法分析(<code>Syntactic Analysis</code>)。解析的主要工作是把源代码转换为更加抽象的代码(<code>Abstract Syntax Tree</code> 简称 <code>AST</code>)</li>
+<li>Transformation 转换 - 转换是对<code>AST</code>进行处理，方便后续的代码生成</li>
+<li>Code Generation 代码生成 - 这一步将新的<code>AST</code>转化为新的代码<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//编译流程</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compiler</span>(<span class="params">input</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> tokens = tokenize(input);<span class="comment">//词法分析</span></span><br><span class="line">    <span class="keyword">let</span> ast = parser(tokens);<span class="comment">//语法分析</span></span><br><span class="line">    <span class="keyword">let</span> newAst = transformer(ast);<span class="comment">//ast转换</span></span><br><span class="line">    <span class="keyword">let</span> output = codeGenerator(newAst);<span class="comment">//代码生成</span></span><br><span class="line">    <span class="keyword">return</span> output;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="实现目标"><a href="#实现目标" class="headerlink" title="实现目标"></a>实现目标</h2><p>目标是把<code>lisp</code>代码编译为<code>C</code>的代码</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*   算术            LISP                      C</span><br><span class="line">*   <span class="number">3</span> + (<span class="number">4</span> - <span class="string">&quot;2&quot;</span>)    (<span class="name">add</span> <span class="number">3</span> (<span class="name">subtract</span> <span class="number">4</span> <span class="string">&quot;2&quot;</span>))    add(<span class="number">3</span>, subtract(<span class="number">4</span>, <span class="string">&quot;2&quot;</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2>
+	
+
+	</div>
+  <a type="button" href="/2020/10/27/用JavaScript实现一个简单的编译器/#more" class="btn btn-default more">Read More</a>
+</div>
+
+-->
+<div class="entry">
+  <div class="row">
+	
+	
+		<p>今天花了一下午时间看了一个<code>JavaScript</code>编译器的实现，并且自己亲手实现了一遍。非常简单的微型编译器，但是却包含了编译器基本的工作流程。一般我们几乎不太能接触到开发编译器工作，但是通过了解编译器的实现原理对我们还是非常有帮助。</p>
+<h2 id="编译器介绍"><a href="#编译器介绍" class="headerlink" title="编译器介绍"></a>编译器介绍</h2><p><code>compiler</code>是将一种语言转换为另外一种语言的程序。</p>
+<h2 id="编译器原理"><a href="#编译器原理" class="headerlink" title="编译器原理"></a>编译器原理</h2><p>大部分编译器的工作可以分为三个阶段：</p>
+<ol>
+<li>Parsing解析 - 解析分为词法分析(<code>Lexical Analysis</code>)和语法分析(<code>Syntactic Analysis</code>)。解析的主要工作是把源代码转换为更加抽象的代码(<code>Abstract Syntax Tree</code> 简称 <code>AST</code>)</li>
+<li>Transformation 转换 - 转换是对<code>AST</code>进行处理，方便后续的代码生成</li>
+<li>Code Generation 代码生成 - 这一步将新的<code>AST</code>转化为新的代码<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//编译流程</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compiler</span>(<span class="params">input</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> tokens = tokenize(input);<span class="comment">//词法分析</span></span><br><span class="line">    <span class="keyword">let</span> ast = parser(tokens);<span class="comment">//语法分析</span></span><br><span class="line">    <span class="keyword">let</span> newAst = transformer(ast);<span class="comment">//ast转换</span></span><br><span class="line">    <span class="keyword">let</span> output = codeGenerator(newAst);<span class="comment">//代码生成</span></span><br><span class="line">    <span class="keyword">return</span> output;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="实现目标"><a href="#实现目标" class="headerlink" title="实现目标"></a>实现目标</h2><p>目标是把<code>lisp</code>代码编译为<code>C</code>的代码</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*   算术            LISP                      C</span><br><span class="line">*   <span class="number">3</span> + (<span class="number">4</span> - <span class="string">&quot;2&quot;</span>)    (<span class="name">add</span> <span class="number">3</span> (<span class="name">subtract</span> <span class="number">4</span> <span class="string">&quot;2&quot;</span>))    add(<span class="number">3</span>, subtract(<span class="number">4</span>, <span class="string">&quot;2&quot;</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2>
+	
+	</div>
+  <a type="button" href="/2020/10/27/用JavaScript实现一个简单的编译器/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2020/10/26/MacBookPro开发环境配置/" >MacBookPro开发环境配置</a>
 		</h3>
 		</div>
@@ -221,6 +285,8 @@
 		
 			<li><a href="/categories/开发工具/">开发工具<span>1</span></a></li>
 		
+			<li><a href="/categories/编程/">编程<span>1</span></a></li>
+		
 		</ul>
 	</div>
 
@@ -229,6 +295,10 @@
 	<div class="widget">
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
+		
+			<li><a href="/tags/JavaScript/">JavaScript<span>1</span></a></li>
+		
+			<li><a href="/tags/编译器/">编译器<span>1</span></a></li>
 		
 			<li><a href="/tags/macOS/">macOS<span>1</span></a></li>
 		
@@ -242,6 +312,10 @@
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2020/10/27/用JavaScript实现一个简单的编译器/" ><i class="fa fa-file-o"></i>用JavaScript实现一个简单的编译器</a>
+      </li>
     
       <li>
         <a href="/2020/10/26/MacBookPro开发环境配置/" ><i class="fa fa-file-o"></i>MacBookPro开发环境配置</a>
