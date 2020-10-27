@@ -105,6 +105,14 @@ python的版本管理工具。由于macOS系统自带的`python`版本为2.7，�
 ### picGo
 一款图床工具，可以用`GitHub`等平台作为图床，用于上传和管理blog里的图片，因为`hexo`的图片管理真的太难用了。安装：`$ brew cask install picGo`。**注意**:picGo默认开启了快捷方式shift+command+p，和vscode的Command Palette快捷键冲突，可以选择关闭。
 
+### wireshark
+网络协议分析工具，能够分析所有类型的流量。通关观察数据包，对于理解网络协议也很有帮助。安装:`brew cask install wireshark`
+
+### Charles
+HTTP/HTTPS监控、代理软件，主要用来分析HTTP流量，也可以对请求进行修改、重放等。 安装`brew cask install Charles`
+
+
+
 ## 系统设置
 - - -
 * 设置-触控板-开启 轻点来点按
