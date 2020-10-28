@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>二叉树的最大深度</title>
+      <link href="2020/10/28/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6/"/>
+      <url>2020/10/28/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6/</url>
+      
+        <content type="html"><![CDATA[<p>给定一个二叉树，找出其最大深度。</p><p>二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">            <span class="number">1</span></span><br><span class="line">          /   \</span><br><span class="line">         <span class="number">2</span>      <span class="number">3</span></span><br><span class="line">        / \    / \ </span><br><span class="line">       <span class="number">4</span>   <span class="number">5</span>  <span class="number">6</span>   <span class="number">7</span></span><br><span class="line">                   \</span><br><span class="line">                    <span class="number">8</span></span><br><span class="line">output: 4</span><br></pre></td></tr></table></figure><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//递归实现</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">maxDepth</span>(<span class="params">node</span>)</span>&#123;</span><br><span class="line">    <span class="function"><span class="title">if</span>(<span class="params">node==<span class="literal">null</span></span>)</span>&#123;<span class="comment">//终止条件terminating case</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> lefeDepth=maxDepth(node.left);</span><br><span class="line">    <span class="keyword">let</span> rightDepth=maxDepth(node.right);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.max(lefeDepth,rightDepth)+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>用JavaScript实现一个简单的编译器</title>
       <link href="2020/10/27/%E7%94%A8JavaScript%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E7%BC%96%E8%AF%91%E5%99%A8/"/>
       <url>2020/10/27/%E7%94%A8JavaScript%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E7%BC%96%E8%AF%91%E5%99%A8/</url>
