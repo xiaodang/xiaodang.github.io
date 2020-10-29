@@ -1,0 +1,343 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>增加文章：哈希函数的应用 | xiaodang&#39;s blog</title>
+  <meta name="author" content="xiaodang">
+  
+  <meta name="description" content="在计算机程序设计中，哈希函数(又名散列函数)把文本或者其他数据映射为整数。通常不同的输入对应不同的输出，但是有时候会发生碰撞(collision碰撞就是不同的输入对应相同的输出)。
+加密哈希函数把文本或者二进制数据转化为固定长度的哈希值，并且具有抗碰撞性和不可逆性。
+软件工程里的哈希在程序中哈希函数通常被用来实现数据结构hash-table（哈希表，或者关联数组，或者字典）。
+python中的dict：
+1dict=&amp;#123;&amp;quot;name&amp;quot;:&amp;quot;xiaoye&amp;quot;,&amp;quot;age&amp;quot;:29&amp;#125;
+加密哈希函数在密码学中，哈希函数将任意大小的输入数据(例如文本消息)转换为固定大小的结果(例如256位)，被称为哈希值(或哈希码、消息摘要)。在计算机密码学中使用的哈希函数(哈希算法)被称为“加密哈希函数”。SHA3-256就是一个加密哈希函数，把任意输入转化为256位，例如，我们可以使用它计算helloworld的哈希值。
+1234import hashlib,binasciisha3_256hash=hashlib.sha3_256(&amp;#x27;helloworld&amp;#x27;.encode(&amp;#x27;ascii&amp;#x27;)).digest()print(&amp;quot;SHA3-256(&amp;#x27;hello&amp;#x27;) =&amp;quot;, binascii.hexlify(sha3_256hash))# output:92dad9443e4dd6d70a7f11872101ebff87e21798e4fbb26fa4bf590eb440e71b
+哈希函数的应用"> 
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="增加文章：哈希函数的应用"/>
+  <meta property="og:site_name" content="xiaodang&#39;s blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="xiaodang&#39;s blog" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1XXD3NYJLC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1XXD3NYJLC');
+</script>
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+	style="background-color:transparent;">
+	<div class="container">
+		<!-- navbar-header -->
+		<button type="button" class=" navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="navbar-text">
+				MENU
+			</span>
+		</button>
+		<a class="navbar-brand" href="/">xiaodang&#39;s blog</a>
+		<div class="collapse navbar-collapse nav-menu" style="height: auto;position: absolute;top: 0px;right: 100px;">
+			<ul class="nav navbar-nav">
+				
+				<li>
+					<a href="/archives" title="All the articles.">
+						<i class=""></i>Archives
+					</a>
+				</li>
+				
+				<li>
+					<a href="/categories" title="All the categories.">
+						<i class=""></i>Categories
+					</a>
+				</li>
+				
+				<li>
+					<a href="/tags" title="All the tags.">
+						<i class=""></i>Tags
+					</a>
+				</li>
+				
+				<li>
+					<a href="/about" title="About me.">
+						<i class=""></i>About
+					</a>
+				</li>
+				
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 增加文章：哈希函数的应用</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>在计算机程序设计中，<code>哈希函数</code>(又名散列函数)把文本或者其他数据映射为整数。通常不同的输入对应不同的输出，但是有时候会发生碰撞(<code>collision</code>碰撞就是不同的输入对应相同的输出)。</p>
+<p><code>加密哈希函数</code>把文本或者二进制数据转化为<code>固定长度</code>的<code>哈希值</code>，并且具有<code>抗碰撞性</code>和<code>不可逆性</code>。</p>
+<h2 id="软件工程里的哈希"><a href="#软件工程里的哈希" class="headerlink" title="软件工程里的哈希"></a>软件工程里的哈希</h2><p>在程序中<code>哈希函数</code>通常被用来实现数据结构<code>hash-table</code>（哈希表，或者关联数组，或者字典）。</p>
+<p>python中的<code>dict</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dict</span>=&#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;xiaoye&quot;</span>,<span class="string">&quot;age&quot;</span>:<span class="number">29</span>&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="加密哈希函数"><a href="#加密哈希函数" class="headerlink" title="加密哈希函数"></a>加密哈希函数</h2><p>在密码学中，<code>哈希函数</code>将任意大小的输入数据(例如文本消息)转换为固定大小的结果(例如256位)，被称为<code>哈希值</code>(或哈希码、消息摘要)。在计算机密码学中使用的哈希函数(哈希算法)被称为“<code>加密哈希函数</code>”。<code>SHA3-256</code>就是一个加密哈希函数，把任意输入转化为256位，例如，我们可以使用它计算helloworld的哈希值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib,binascii</span><br><span class="line">sha3_256hash=hashlib.sha3_256(<span class="string">&#x27;helloworld&#x27;</span>.encode(<span class="string">&#x27;ascii&#x27;</span>)).digest()</span><br><span class="line">print(<span class="string">&quot;SHA3-256(&#x27;hello&#x27;) =&quot;</span>, binascii.hexlify(sha3_256hash))</span><br><span class="line"><span class="comment"># output:92dad9443e4dd6d70a7f11872101ebff87e21798e4fbb26fa4bf590eb440e71b</span></span><br></pre></td></tr></table></figure>
+<h2 id="哈希函数的应用"><a href="#哈希函数的应用" class="headerlink" title="哈希函数的应用"></a>哈希函数的应用</h2><h3 id="文件完整性"><a href="#文件完整性" class="headerlink" title="文件完整性"></a>文件完整性</h3><p>用户从网上下载文件的过程中，为了保证文件是原始的，没有被损坏，一般文件提供方都会在网站上给出文件的哈希值(MD5值或者SHA256校验值等)，这样用户下载文件后就可以用同样的哈希算法来计算哈希值，通过与官网的哈希值对比，就能知道文件是不是原始的。</p>
+<p>例如openssl官网的下载页面分别给出了文件的<code>SHA256</code>和<code>SHA1</code>两种哈希值<br><img src="https://cdn.jsdelivr.net/gh/xiaodang/blog-image/img/20201029210654.png"></p>
+<p>我下载了openssl-3.0.0-alpha7.tar.gz这个文件，在mac计算<code>SHA1</code>哈希值的命令如下</p>
+<p><code>$ shasum -a 1  openssl-3.0.0-alpha7.tar.gz</code></p>
+<p>输出的结果是1d05682f62b34038a37b196c7c43a21013f5f507，通过比对官网的<code>SHA 1</code>值，完全一样，说明下载的文件是原始的。</p>
+<h3 id="存储密码"><a href="#存储密码" class="headerlink" title="存储密码"></a>存储密码</h3><p>哈希函数还可以用来存储密码和验证密码。开发者通常不会直接保存用户的明文密码，而是保存密码的hash值，这样防止保存密码的文件或数据库泄漏后，用户的密码也随之泄漏。当然，如果要更加安全的保存用户的密码，不能简单的使用<code>MD5</code>或者MD5+盐（salt），因为这些哈希函数被证明是不安全的，需要用<code>密钥派生函数</code>(Key derivation function)。</p>
+<h3 id="生成唯一ID-（Generate-Unique-ID）"><a href="#生成唯一ID-（Generate-Unique-ID）" class="headerlink" title="生成唯一ID （Generate Unique ID）"></a>生成唯一ID （Generate Unique ID）</h3><p>为文档/消息生成几乎唯一的ID。加密哈希函数可以基于文档的内容近乎唯一地标记文档。理论上任何哈希函数都可能发生碰撞，但是发生碰撞的及其小，所以大多数系统(例如git)假设他们使用的哈希函数是没有碰撞的。</p>
+<p>代码版本管理工具git会为每一个版本提交创建一个commit值,这个值是一个SHA-1哈希。</p>
+<h3 id="工作量证明-（Proof-of-Work，PoW）"><a href="#工作量证明-（Proof-of-Work，PoW）" class="headerlink" title="工作量证明 （Proof-of-Work，PoW）"></a>工作量证明 （Proof-of-Work，PoW）</h3><p>一般要求用户进行一些耗时适当的复杂运算，并且答案能被服务方快速验算，以此耗用的时间、设备与能源做为担保成本，以确保服务与资源是被真正的需求所使用。工作量证明最常用的技术原理是散列函数。由于输入散列函数h()的任意值n，会对应到一个h(n)结果，而n只要变动一个比特，就会引起雪崩效应，所以几乎无法从h(n)反推回n，因此借由指定查找h(n)的特征，让用户进行大量的穷举运算，就可以达成工作量证明。现时此技术成为了加密货币的主流共识机制之一，如比特币所采用的技术。</p>
+<h3 id="伪随机数"><a href="#伪随机数" class="headerlink" title="伪随机数"></a>伪随机数</h3><p>参考:</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%B7%A5%E4%BD%9C%E9%87%8F%E8%AD%89%E6%98%8E">维基百科-工作量证明</a></li>
+<li><a target="_blank" rel="noopener" href="https://cryptobook.nakov.com/cryptographic-hash-functions/hash-functions-applications">cryptobook</a></li>
+<li>《深入浅出HTTPS:从原理到实战》</li>
+</ol>
+
+	  <div class="article-footer-copyright">
+    本博客采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议(CC BY-NC-SA 4.0) 发布.</a>
+    <br/>
+    转载请注明来自:<a href="https://xiaodang.github.io/" >xiaodang's blog</a>
+</div>
+
+	</div>
+
+	
+	<span id="/2020/10/29/%E5%A2%9E%E5%8A%A0%E6%96%87%E7%AB%A0%EF%BC%9A%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0%E7%9A%84%E5%BA%94%E7%94%A8/" class="leancloud-visitors view" data-flag-title="增加文章：哈希函数的应用">
+		<em class="post-meta-item-text"> Page View </em> <i class="leancloud-visitors-count"></i>
+	</span>
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2020/10/28/二叉树的最大深度/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+-->
+	
+		<section id="comments" class="comments">
+			<style>
+			.comments{margin:30px;padding:10px;background:rgb(0, 0, 0)}
+			@media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#000}}
+			</style>
+			<div id="vcomment" class="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+var valineConfig = {"enable":true,"appId":"CBHum5579cticmvCz5yUpSh0-gzGzoHsz","appKey":"Az1yTaXRAOJOnHgP8CLAe4su","placeholder":"提交评论时留下邮箱收到回复后将自动通知","visitor":true,"avatar":"monsterid","requiredFields":["nick","mail"]}
+valineConfig.el='#vcomment';
+new Valine(valineConfig);
+    // new Valine({
+    //     el: '#vcomment',
+    //     appId: "",
+    //     appKey: "",
+    //     placeholder: "提交评论时留下邮箱收到回复后将自动通知",
+    //     avatar:"monsterid",
+    //     visitor: "true",
+    //     requiredFields: "nick,mail".split(','),
+    // });
+</script>
+
+		</section>
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2020-10-29 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/编程/">编程<span>2</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/密码学/">密码学<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E9%87%8C%E7%9A%84%E5%93%88%E5%B8%8C"><span class="toc-article-text">软件工程里的哈希</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8A%A0%E5%AF%86%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0"><span class="toc-article-text">加密哈希函数</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-article-text">哈希函数的应用</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%96%87%E4%BB%B6%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="toc-article-text">文件完整性</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%AD%98%E5%82%A8%E5%AF%86%E7%A0%81"><span class="toc-article-text">存储密码</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%94%9F%E6%88%90%E5%94%AF%E4%B8%80ID-%EF%BC%88Generate-Unique-ID%EF%BC%89"><span class="toc-article-text">生成唯一ID （Generate Unique ID）</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%B7%A5%E4%BD%9C%E9%87%8F%E8%AF%81%E6%98%8E-%EF%BC%88Proof-of-Work%EF%BC%8CPoW%EF%BC%89"><span class="toc-article-text">工作量证明 （Proof-of-Work，PoW）</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0"><span class="toc-article-text">伪随机数</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+		
+
+	</div>
+	
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2020 xiaodang's Blog
+  
+      powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. 
+      <!-- Theme <a href="https://github.com/Ares-X/hexo-theme-freemind.bithack" target="_blank">freemind.bithack</a>   -->
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

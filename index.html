@@ -130,6 +130,60 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2020/10/29/增加文章：哈希函数的应用/" >增加文章：哈希函数的应用</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2020-10-29  </div>
+		</div>
+	</div>
+	
+
+
+			<!--
+<div class="entry">
+  <div class="row">
+	
+	
+		<p>在计算机程序设计中，<code>哈希函数</code>(又名散列函数)把文本或者其他数据映射为整数。通常不同的输入对应不同的输出，但是有时候会发生碰撞(<code>collision</code>碰撞就是不同的输入对应相同的输出)。</p>
+<p><code>加密哈希函数</code>把文本或者二进制数据转化为<code>固定长度</code>的<code>哈希值</code>，并且具有<code>抗碰撞性</code>和<code>不可逆性</code>。</p>
+<h2 id="软件工程里的哈希"><a href="#软件工程里的哈希" class="headerlink" title="软件工程里的哈希"></a>软件工程里的哈希</h2><p>在程序中<code>哈希函数</code>通常被用来实现数据结构<code>hash-table</code>（哈希表，或者关联数组，或者字典）。</p>
+<p>python中的<code>dict</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dict</span>=&#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;xiaoye&quot;</span>,<span class="string">&quot;age&quot;</span>:<span class="number">29</span>&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="加密哈希函数"><a href="#加密哈希函数" class="headerlink" title="加密哈希函数"></a>加密哈希函数</h2><p>在密码学中，<code>哈希函数</code>将任意大小的输入数据(例如文本消息)转换为固定大小的结果(例如256位)，被称为<code>哈希值</code>(或哈希码、消息摘要)。在计算机密码学中使用的哈希函数(哈希算法)被称为“<code>加密哈希函数</code>”。<code>SHA3-256</code>就是一个加密哈希函数，把任意输入转化为256位，例如，我们可以使用它计算helloworld的哈希值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib,binascii</span><br><span class="line">sha3_256hash=hashlib.sha3_256(<span class="string">&#x27;helloworld&#x27;</span>.encode(<span class="string">&#x27;ascii&#x27;</span>)).digest()</span><br><span class="line">print(<span class="string">&quot;SHA3-256(&#x27;hello&#x27;) =&quot;</span>, binascii.hexlify(sha3_256hash))</span><br><span class="line"><span class="comment"># output:92dad9443e4dd6d70a7f11872101ebff87e21798e4fbb26fa4bf590eb440e71b</span></span><br></pre></td></tr></table></figure>
+<h2 id="哈希函数的应用"><a href="#哈希函数的应用" class="headerlink" title="哈希函数的应用"></a>哈希函数的应用</h2>
+	
+
+	</div>
+  <a type="button" href="/2020/10/29/增加文章：哈希函数的应用/#more" class="btn btn-default more">Read More</a>
+</div>
+
+-->
+<div class="entry">
+  <div class="row">
+	
+	
+		<p>在计算机程序设计中，<code>哈希函数</code>(又名散列函数)把文本或者其他数据映射为整数。通常不同的输入对应不同的输出，但是有时候会发生碰撞(<code>collision</code>碰撞就是不同的输入对应相同的输出)。</p>
+<p><code>加密哈希函数</code>把文本或者二进制数据转化为<code>固定长度</code>的<code>哈希值</code>，并且具有<code>抗碰撞性</code>和<code>不可逆性</code>。</p>
+<h2 id="软件工程里的哈希"><a href="#软件工程里的哈希" class="headerlink" title="软件工程里的哈希"></a>软件工程里的哈希</h2><p>在程序中<code>哈希函数</code>通常被用来实现数据结构<code>hash-table</code>（哈希表，或者关联数组，或者字典）。</p>
+<p>python中的<code>dict</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dict</span>=&#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;xiaoye&quot;</span>,<span class="string">&quot;age&quot;</span>:<span class="number">29</span>&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="加密哈希函数"><a href="#加密哈希函数" class="headerlink" title="加密哈希函数"></a>加密哈希函数</h2><p>在密码学中，<code>哈希函数</code>将任意大小的输入数据(例如文本消息)转换为固定大小的结果(例如256位)，被称为<code>哈希值</code>(或哈希码、消息摘要)。在计算机密码学中使用的哈希函数(哈希算法)被称为“<code>加密哈希函数</code>”。<code>SHA3-256</code>就是一个加密哈希函数，把任意输入转化为256位，例如，我们可以使用它计算helloworld的哈希值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib,binascii</span><br><span class="line">sha3_256hash=hashlib.sha3_256(<span class="string">&#x27;helloworld&#x27;</span>.encode(<span class="string">&#x27;ascii&#x27;</span>)).digest()</span><br><span class="line">print(<span class="string">&quot;SHA3-256(&#x27;hello&#x27;) =&quot;</span>, binascii.hexlify(sha3_256hash))</span><br><span class="line"><span class="comment"># output:92dad9443e4dd6d70a7f11872101ebff87e21798e4fbb26fa4bf590eb440e71b</span></span><br></pre></td></tr></table></figure>
+<h2 id="哈希函数的应用"><a href="#哈希函数的应用" class="headerlink" title="哈希函数的应用"></a>哈希函数的应用</h2>
+	
+	</div>
+  <a type="button" href="/2020/10/29/增加文章：哈希函数的应用/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2020/10/28/二叉树的最大深度/" >二叉树的最大深度</a>
 		</h3>
 		</div>
@@ -333,7 +387,7 @@
 		
 			<li><a href="/categories/算法/">算法<span>1</span></a></li>
 		
-			<li><a href="/categories/编程/">编程<span>1</span></a></li>
+			<li><a href="/categories/编程/">编程<span>2</span></a></li>
 		
 		</ul>
 	</div>
@@ -346,11 +400,13 @@
 		
 			<li><a href="/tags/算法/">算法<span>1</span></a></li>
 		
-			<li><a href="/tags/macOS/">macOS<span>1</span></a></li>
-		
 			<li><a href="/tags/编译器/">编译器<span>1</span></a></li>
 		
+			<li><a href="/tags/macOS/">macOS<span>1</span></a></li>
+		
 			<li><a href="/tags/JavaScript/">JavaScript<span>1</span></a></li>
+		
+			<li><a href="/tags/密码学/">密码学<span>1</span></a></li>
 		
 		 
 		</ul>
@@ -362,6 +418,10 @@
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2020/10/29/增加文章：哈希函数的应用/" ><i class="fa fa-file-o"></i>增加文章：哈希函数的应用</a>
+      </li>
     
       <li>
         <a href="/2020/10/28/二叉树的最大深度/" ><i class="fa fa-file-o"></i>二叉树的最大深度</a>
