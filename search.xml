@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>libuv初探</title>
+      <link href="2020/11/12/libuv%E5%88%9D%E6%8E%A2/"/>
+      <url>2020/11/12/libuv%E5%88%9D%E6%8E%A2/</url>
+      
+        <content type="html"><![CDATA[<p>今天研究了一下Node使用的异步IO框架libuv,下面一张图显示了livuv在Node架构中的位置。</p><p><img src="https://cdn.jsdelivr.net/gh/xiaodang/blog-image/img/20201112091257.png"></p><h2 id="libuv是什么"><a href="#libuv是什么" class="headerlink" title="libuv是什么"></a>libuv是什么</h2><p>libuv是一个高性能的，事件驱动的I/O库，并且提供了跨平台（如windows, linux）的API。</p><h2 id="libuv架构"><a href="#libuv架构" class="headerlink" title="libuv架构"></a>libuv架构</h2><p><img src="https://cdn.jsdelivr.net/gh/xiaodang/blog-image/img/20201112091634.png"></p><p>左侧部分是网络I/O相关的请求，右侧部分是由文件I/O, DNS Ops以及User code组成的请求。对于Network I/O和以File I/O为代表的另一类请求，异步处理的机制是不一样的。</p><p>对于Network I/O相关的请求， 根据OS平台不同，分别使用Linux上的epoll，OSX和BSD类OS上的kqueue，SunOS上的event ports以及Windows上的IOCP机制。</p><p>而对于File I/O为代表的请求，则使用thread pool。利用thread pool的方式实现异步请求处理，在各类OS上都能获得很好的支持。</p><h2 id="I-O-loop"><a href="#I-O-loop" class="headerlink" title="I/O loop"></a>I/O loop</h2><p>libuv强制使用异步的，事件驱动的编程风格。它的核心工作是提供一个event-loop，还有基于I/O和其它事件通知的回调函数。libuv还提供了一些核心工具，例如定时器，非阻塞的网络支持，异步文件系统访问，子进程等。</p><p>在事件驱动编程中，程序会关注每一个事件，并且对每一个事件的发生做出反应。libuv会负责将来自操作系统的事件收集起来，或者监视其他来源的事件。这样，用户就可以注册回调函数，回调函数会在事件发生的时候被调用。</p><p><img src="https://cdn.jsdelivr.net/gh/xiaodang/blog-image/img/20201112092121.png"></p><h2 id="HELLOWORLD"><a href="#HELLOWORLD" class="headerlink" title="HELLOWORLD"></a>HELLOWORLD</h2><p>了解完之后，必须要下载类库然后了自己使用一些才能更深入的了解工作机制。由于对于C的了解并不是太多，在开发环境配置、编译方面遇到了不少问题。</p><ul><li>如何安装类库?</li><li>如何include .h文件（c的头文件）</li><li>如何链接编译</li></ul><p>由于我的是macOS环境和vscode IDE，所以使用vcpkg管理工具来安装libuv的包文件。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vcpkg install libuv</span><br></pre></td></tr></table></figure><p>创建helloworld.c文件，在头部引入<code>#include &lt;uv.h&gt;</code>,但是提示无法找到<code>uv.h</code>,需要在<code>.vscode/c_cpp_properties.json</code>配置文件的属性includePath中加入<code>$&#123;vcpkgRoot&#125;/x64-osx/include</code>,其实也就是体检一个path，让编译器去这里寻找<code>.h</code>文件，最后还是无法build，提示<code>ld: library not found for -llibuv</code>,google了半太难都无法找到方案，其实很简单，就是链接阶段出错了，无法找libuv，最后直接<code>man ld</code> 查看ld的参数说明，然后在<code>.vscode/tasks.json</code>的args中加入<code>&quot;-I/usr/local/var/vcpkg/installed/x64-osx/include&quot;,&quot;-L/usr/local/var/vcpkg/installed/x64-osx/lib&quot;</code>即可。下面是HELLOWORLD的完整代码</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;uv.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;uv/version.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">/* code */</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;version:%d\n&quot;</span>, UV_VERSION_MAJOR);</span><br><span class="line">  <span class="keyword">uv_loop_t</span> *loop = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">uv_loop_t</span>));</span><br><span class="line">  uv_loop_init(loop);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Now quitting.\n&quot;</span>);</span><br><span class="line">  uv_run(loop, UV_RUN_DEFAULT);</span><br><span class="line">  uv_loop_close(loop);</span><br><span class="line">  <span class="built_in">free</span>(loop);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 编程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> redis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>redis分布式锁的实现</title>
       <link href="2020/11/02/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
       <url>2020/11/02/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E5%AE%9E%E7%8E%B0/</url>

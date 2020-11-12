@@ -130,6 +130,60 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2020/11/12/libuv初探/" >libuv初探</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2020-11-12  </div>
+		</div>
+	</div>
+	
+
+
+			<!--
+<div class="entry">
+  <div class="row">
+	
+	
+		<p>今天研究了一下Node使用的异步IO框架libuv,下面一张图显示了livuv在Node架构中的位置。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/xiaodang/blog-image/img/20201112091257.png"></p>
+<h2 id="libuv是什么"><a href="#libuv是什么" class="headerlink" title="libuv是什么"></a>libuv是什么</h2><p>libuv是一个高性能的，事件驱动的I/O库，并且提供了跨平台（如windows, linux）的API。</p>
+<h2 id="libuv架构"><a href="#libuv架构" class="headerlink" title="libuv架构"></a>libuv架构</h2><p><img src="https://cdn.jsdelivr.net/gh/xiaodang/blog-image/img/20201112091634.png"></p>
+<p>左侧部分是网络I/O相关的请求，右侧部分是由文件I/O, DNS Ops以及User code组成的请求。对于Network I/O和以File I/O为代表的另一类请求，异步处理的机制是不一样的。</p>
+<p>对于Network I/O相关的请求， 根据OS平台不同，分别使用Linux上的epoll，OSX和BSD类OS上的kqueue，SunOS上的event ports以及Windows上的IOCP机制。</p>
+<p>而对于File I/O为代表的请求，则使用thread pool。利用thread pool的方式实现异步请求处理，在各类OS上都能获得很好的支持。</p>
+<h2 id="I-O-loop"><a href="#I-O-loop" class="headerlink" title="I/O loop"></a>I/O loop</h2>
+	
+
+	</div>
+  <a type="button" href="/2020/11/12/libuv初探/#more" class="btn btn-default more">Read More</a>
+</div>
+
+-->
+<div class="entry">
+  <div class="row">
+	
+	
+		<p>今天研究了一下Node使用的异步IO框架libuv,下面一张图显示了livuv在Node架构中的位置。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/xiaodang/blog-image/img/20201112091257.png"></p>
+<h2 id="libuv是什么"><a href="#libuv是什么" class="headerlink" title="libuv是什么"></a>libuv是什么</h2><p>libuv是一个高性能的，事件驱动的I/O库，并且提供了跨平台（如windows, linux）的API。</p>
+<h2 id="libuv架构"><a href="#libuv架构" class="headerlink" title="libuv架构"></a>libuv架构</h2><p><img src="https://cdn.jsdelivr.net/gh/xiaodang/blog-image/img/20201112091634.png"></p>
+<p>左侧部分是网络I/O相关的请求，右侧部分是由文件I/O, DNS Ops以及User code组成的请求。对于Network I/O和以File I/O为代表的另一类请求，异步处理的机制是不一样的。</p>
+<p>对于Network I/O相关的请求， 根据OS平台不同，分别使用Linux上的epoll，OSX和BSD类OS上的kqueue，SunOS上的event ports以及Windows上的IOCP机制。</p>
+<p>而对于File I/O为代表的请求，则使用thread pool。利用thread pool的方式实现异步请求处理，在各类OS上都能获得很好的支持。</p>
+<h2 id="I-O-loop"><a href="#I-O-loop" class="headerlink" title="I/O loop"></a>I/O loop</h2>
+	
+	</div>
+  <a type="button" href="/2020/11/12/libuv初探/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2020/11/02/redis分布式锁的实现/" >redis分布式锁的实现</a>
 		</h3>
 		</div>
@@ -455,7 +509,7 @@
 		
 			<li><a href="/categories/算法/">算法<span>1</span></a></li>
 		
-			<li><a href="/categories/编程/">编程<span>3</span></a></li>
+			<li><a href="/categories/编程/">编程<span>4</span></a></li>
 		
 		</ul>
 	</div>
@@ -466,17 +520,17 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/macOS/">macOS<span>1</span></a></li>
+			<li><a href="/tags/redis/">redis<span>2</span></a></li>
 		
-			<li><a href="/tags/算法/">算法<span>1</span></a></li>
+			<li><a href="/tags/JavaScript/">JavaScript<span>1</span></a></li>
+		
+			<li><a href="/tags/macOS/">macOS<span>1</span></a></li>
 		
 			<li><a href="/tags/编译器/">编译器<span>1</span></a></li>
 		
-			<li><a href="/tags/redis/">redis<span>1</span></a></li>
+			<li><a href="/tags/算法/">算法<span>1</span></a></li>
 		
 			<li><a href="/tags/密码学/">密码学<span>1</span></a></li>
-		
-			<li><a href="/tags/JavaScript/">JavaScript<span>1</span></a></li>
 		
 		 
 		</ul>
@@ -488,6 +542,10 @@
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2020/11/12/libuv初探/" ><i class="fa fa-file-o"></i>libuv初探</a>
+      </li>
     
       <li>
         <a href="/2020/11/02/redis分布式锁的实现/" ><i class="fa fa-file-o"></i>redis分布式锁的实现</a>
@@ -503,10 +561,6 @@
     
       <li>
         <a href="/2020/10/27/用JavaScript实现一个简单的编译器/" ><i class="fa fa-file-o"></i>用JavaScript实现一个简单的编译器</a>
-      </li>
-    
-      <li>
-        <a href="/2020/10/26/MacBookPro开发环境配置/" ><i class="fa fa-file-o"></i>MacBookPro开发环境配置</a>
       </li>
     
   </ul>
