@@ -6,28 +6,18 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>redis分布式锁的实现 | xiaodang&#39;s blog</title>
+  <title>macOS如何打开新窗口执行脚本 | xiaodang&#39;s blog</title>
   <meta name="author" content="xiaodang">
   
-  <meta name="description" content="在并发场景下，经常需要对某些资源进行互斥的操作。在单服务器系统我们常用本地锁来避免并发带来的问题，然而，当服务采用集群方式部署时，本地锁无法在多个服务器之间生效，这时候保证数据的一致性就需要分布式锁来实现。
-比如用户在网页和手机端同时下单，对余额进行减操作，如果没有合理的锁对余额进行保护，那最终用户对余额很有可能就会变得错乱。
-1234567用户A网页端                               用户A手机端1 balance&amp;#x3D;db.getUserBalance()2                                        balance&amp;#x3D;db.getUserBalance()3 db.saveUserBalance(balance-100)4                                        db.saveUserBalance(balance-100)
+  <meta name="description" content="今天需要写一个脚本同时ssh连接到不同到服务器执行任务，并实时观察log，所以需要写一个脚本打开新的terminal，查找后发现可以用macOS的osascript命令，记录一下：
+1osascript -e &amp;#x27;tell application &amp;quot;Terminal&amp;quot; to do script &amp;quot;ls&amp;quot;&amp;#x27;
 
-redis单例模式下的正确实现要正确的实现锁，必须保证:
-
-互斥 - 同一时间只能有一个客户端持有锁
-无死锁 - 即使锁定资源的客户端崩溃了，其他客户端也可以获得锁
-锁的身份验证 - 锁的释放必须由锁的持有客户端释放，保证锁的安全释放
-
-在redis中可以通过设置SET NX PX 给资源上锁，NX表示只会在资源不存在的情况下设置成功，PX表示这个资源的过期时间(单位:毫秒),同时key的值被设置成了一个随机的值，这个值必须在所有的客户端中保证唯一。
-1SET resource_name my_random_value NX PX 30000
-NX保证了资源的互斥
-PX保证了无死锁。即便持有锁的客户端崩溃了，也会在过期时间之后，释放锁"> 
+由于连接每次连接ssh都需要输入yes来信任host，可以在～/.ssh/config文件中添加StrictHostKeyChecking no来取消检查，这也可以方便脚本的执行，但是用完记得取消，否则这样做是不安全的。"> 
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="redis分布式锁的实现"/>
+  <meta property="og:title" content="macOS如何打开新窗口执行脚本"/>
   <meta property="og:site_name" content="xiaodang&#39;s blog"/>
 
   
@@ -120,7 +110,7 @@ PX保证了无死锁。即便持有锁的客户端崩溃了，也会在过期时
 
 	
 		<div class="page-header">
-			<h1> redis分布式锁的实现</h1>
+			<h1> macOS如何打开新窗口执行脚本</h1>
 		</div>
 	
 
@@ -137,27 +127,10 @@ PX保证了无死锁。即便持有锁的客户端崩溃了，也会在过期时
 	<div class="mypage">		
 	  		
 
-	  <p>在并发场景下，经常需要对某些资源进行互斥的操作。在单服务器系统我们常用本地锁来避免并发带来的问题，然而，当服务采用集群方式部署时，本地锁无法在多个服务器之间生效，这时候保证数据的一致性就需要分布式锁来实现。</p>
-<p>比如用户在网页和手机端同时下单，对余额进行减操作，如果没有合理的锁对余额进行保护，那最终用户对余额很有可能就会变得错乱。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">用户A网页端                               用户A手机端</span><br><span class="line"></span><br><span class="line">1 balance&#x3D;db.getUserBalance()</span><br><span class="line">2                                        balance&#x3D;db.getUserBalance()</span><br><span class="line">3 db.saveUserBalance(balance-100)</span><br><span class="line">4                                        db.saveUserBalance(balance-100)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+	  <p>今天需要写一个脚本同时ssh连接到不同到服务器执行任务，并实时观察log，所以需要写一个脚本打开新的terminal，查找后发现可以用macOS的osascript命令，记录一下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">osascript -e <span class="string">&#x27;tell application &quot;Terminal&quot; to do script &quot;ls&quot;&#x27;</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="redis单例模式下的正确实现"><a href="#redis单例模式下的正确实现" class="headerlink" title="redis单例模式下的正确实现"></a>redis单例模式下的正确实现</h2><p>要正确的实现锁，必须保证:</p>
-<ul>
-<li>互斥 - 同一时间只能有一个客户端持有锁</li>
-<li>无死锁 - 即使锁定资源的客户端崩溃了，其他客户端也可以获得锁</li>
-<li>锁的身份验证 - 锁的释放必须由锁的持有客户端释放，保证锁的安全释放</li>
-</ul>
-<p>在redis中可以通过设置<code>SET NX PX </code>给资源上锁，NX表示只会在资源不存在的情况下设置成功，PX表示这个资源的过期时间(单位:毫秒),同时key的值被设置成了一个随机的值，这个值必须在所有的客户端中保证唯一。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET resource_name my_random_value NX PX 30000</span><br></pre></td></tr></table></figure>
-<p><code>NX</code>保证了资源的互斥</p>
-<p><code>PX</code>保证了无死锁。即便持有锁的客户端崩溃了，也会在过期时间之后，释放锁</p>
-<p><code>my_random_value</code>随机值保证了锁的安全释放。如果持有锁的A客户端由于某些阻塞操作导致超过了锁的过期时间，于是锁被自动释放，B客户端获取到了锁，而A又主动释放锁，此时A就会释放B所持有的锁。而随机值可以在A客户端删除锁时验证锁是否由A设置。</p>
-<p>判断随机值，并且删除资源的操作也必须保证原子行，而<code>redis</code>没有这样的命令，所以必须通过<code>lua</code>脚本来实现:</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> redis.call(<span class="string">&quot;get&quot;</span>,KEYS[<span class="number">1</span>]) == ARGV[<span class="number">1</span>] <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">return</span> redis.call(<span class="string">&quot;del&quot;</span>,KEYS[<span class="number">1</span>])</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-
-
-
+<p>由于连接每次连接ssh都需要输入yes来信任host，可以在<code>～/.ssh/config</code>文件中添加<code>StrictHostKeyChecking no</code>来取消检查，这也可以方便脚本的执行，但是用完记得取消，否则这样做是不安全的。</p>
 
 	  <div class="article-footer-copyright">
     本博客采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议(CC BY-NC-SA 4.0) 发布.</a>
@@ -168,7 +141,7 @@ PX保证了无死锁。即便持有锁的客户端崩溃了，也会在过期时
 	</div>
 
 	
-	<span id="/2020/11/02/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="leancloud-visitors view" data-flag-title="redis分布式锁的实现">
+	<span id="/2020/11/16/macOS%E5%A6%82%E4%BD%95%E6%89%93%E5%BC%80%E6%96%B0%E7%AA%97%E5%8F%A3%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC/" class="leancloud-visitors view" data-flag-title="macOS如何打开新窗口执行脚本">
 		<em class="post-meta-item-text"> Page View </em> <i class="leancloud-visitors-count"></i>
 	</span>
 	
@@ -179,13 +152,12 @@ PX保证了无死锁。即便持有锁的客户端崩溃了，也会在过期时
 
     
     
-    <a href="/2020/11/12/libuv初探/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2020/10/29/哈希函数的应用/" type="button" class="btn btn-default ">Next<i
+    <a href="/2020/11/12/libuv初探/" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -242,7 +214,7 @@ new Valine(valineConfig);
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2020-11-02 
+	2020-11-16 
 	</div>
 	
 
@@ -266,7 +238,7 @@ new Valine(valineConfig);
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
     <ul id="tags" class="tag_box list-unstyled collapse in">	  
 	    
-  <li><a href="/tags/redis/">redis<span>2</span></a></li>
+  <li><a href="/tags/macOS/">macOS<span>2</span></a></li>
     </ul>
 	</div>
 		
