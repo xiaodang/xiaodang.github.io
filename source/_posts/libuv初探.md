@@ -2,7 +2,7 @@
 title: libuv初探
 date: 2020-11-12 09:07:15
 categories: 编程
-tags: redis
+tags: libuv
 toc: true
 ---
 今天研究了一下Node使用的异步IO框架libuv,下面一张图显示了livuv在Node架构中的位置。
