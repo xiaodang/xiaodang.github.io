@@ -4,11 +4,30 @@
   
     
     <entry>
+      <title>rvictl-iOS网络数据分析工具</title>
+      <link href="2020/12/13/rvictl-iOS%E7%BD%91%E7%BB%9C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7/"/>
+      <url>2020/12/13/rvictl-iOS%E7%BD%91%E7%BB%9C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7/</url>
+      
+        <content type="html"><![CDATA[<p>之前在iPhone上抓包都是用的<code>Charlse</code>,但是只能捕获HTTP和HTTPS对流量。</p><p>今天发现了苹果的一个工具叫<code>rvictl</code>，rvi是Remote Virtual Interface的缩写，表示远程虚拟接口。把iPhone通过USB连接电脑之后，通过rvictl就可以创建一个虚拟接口。接下来就可以用tcpdump或者wireshark来监听这个网络接口上的流量。</p><p>但是，由于系统升级了Big Sur，目前这个工具在我的电脑上暂时无法使用。只能等下来的版本再测试一下。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> macOS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>monkeyDev开发</title>
       <link href="2020/12/03/monkeyDev%E5%BC%80%E5%8F%91/"/>
       <url>2020/12/03/monkeyDev%E5%BC%80%E5%8F%91/</url>
       
-        <content type="html"><![CDATA[<p>今天进行iOS逆向开发，肯定会遇到很多坑，之前的坑都踩过，但是没有记录，这次记录一下。</p><h3 id="坑1-签名失败"><a href="#坑1-签名失败" class="headerlink" title="坑1 签名失败"></a>坑1 签名失败</h3><p>安装完后mokeyDev之后，在XCode创建一个新项目，但是对于一直报错无法签名，最后查资料可以在target的Build Settings里面增加一个自定义配置，<code>CODE_SIGNING_ALLOWED=NO</code>，最后变异成功。</p><h3 id="坑2-无法找到libstdc-类库"><a href="#坑2-无法找到libstdc-类库" class="headerlink" title="坑2 无法找到libstdc++类库"></a>坑2 无法找到libstdc++类库</h3><p>这个比较常见，是因为xcode移除了libstdcc，如果类库依赖的话，只需要找到放在对应目录下就可以。</p>]]></content>
+        <content type="html"><![CDATA[<p>今天进行iOS逆向开发，肯定会遇到很多坑，之前的坑都踩过，但是没有记录，这次记录一下。</p><h3 id="坑1-签名失败"><a href="#坑1-签名失败" class="headerlink" title="坑1 签名失败"></a>坑1 签名失败</h3><p>安装完后mokeyDev之后，在XCode创建一个新项目，但是对于一直报错无法签名，最后查资料可以在target的Build Settings里面增加一个自定义配置，<code>CODE_SIGNING_ALLOWED=NO</code>，最后变异成功。</p><h3 id="坑2-无法找到libstdc-类库"><a href="#坑2-无法找到libstdc-类库" class="headerlink" title="坑2 无法找到libstdc++类库"></a>坑2 无法找到libstdc++类库</h3><p>这个比较常见，是因为xcode移除了libstdcc，如果类库依赖的话，只需要找到放在对应目录下就可以。</p><h3 id="如何查看ipa是否加密"><a href="#如何查看ipa是否加密" class="headerlink" title="如何查看ipa是否加密"></a>如何查看ipa是否加密</h3><p>otool -l Target | grep -A 4 LC_ENCRYPTION_INFO</p>]]></content>
       
       
       <categories>
