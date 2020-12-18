@@ -130,6 +130,54 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2020/12/18/利用MutationObserver-API追踪DOM的修改/" >利用MutationObserver API追踪DOM的修改</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2020-12-18  </div>
+		</div>
+	</div>
+	
+
+
+			<!--
+<div class="entry">
+  <div class="row">
+	
+	
+		<p>之前写爬虫的时候，经常需要从界面入手，找到自己想要的数据，然后看网络请求，来搜索是哪个api返回的数据，一般情况下，都能从网络请求中发现想要的数据。但是当数据做了混淆之后，很多数据是没有办法直接从api中搜索到的。这时候就可以用到<code>MutationObserver</code> API。</p>
+<p>MDN上的描述<code>The MutationObserver interface provides the ability to watch for changes being made to the DOM tree. </code>。简单翻译一下就是，这个接口提供了监控DOM树变化的能力。</p>
+<h3 id="MDN的例子"><a href="#MDN的例子" class="headerlink" title="MDN的例子"></a>MDN的例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Select the node that will be observed for mutations</span><br><span class="line">const targetNode &#x3D; document.getElementById(&#39;some-id&#39;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Options for the observer (which mutations to observe)</span><br><span class="line">const config &#x3D; &#123; attributes: true, childList: true, subtree: true &#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Callback function to execute when mutations are observed</span><br><span class="line">const callback &#x3D; function(mutationsList, observer) &#123;</span><br><span class="line">    &#x2F;&#x2F; Use traditional &#39;for loops&#39; for IE 11</span><br><span class="line">    &#x2F;&#x2F;如果需要调试的话，只需要在callback里面执行debugger就可以了</span><br><span class="line">    for(const mutation of mutationsList) &#123;</span><br><span class="line">        if (mutation.type &#x3D;&#x3D;&#x3D; &#39;childList&#39;) &#123;</span><br><span class="line">            console.log(&#39;A child node has been added or removed.&#39;);</span><br><span class="line">        &#125;</span><br><span class="line">        else if (mutation.type &#x3D;&#x3D;&#x3D; &#39;attributes&#39;) &#123;</span><br><span class="line">            console.log(&#39;The &#39; + mutation.attributeName + &#39; attribute was modified.&#39;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Create an observer instance linked to the callback function</span><br><span class="line">const observer &#x3D; new MutationObserver(callback);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Start observing the target node for configured mutations</span><br><span class="line">observer.observe(targetNode, config);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Later, you can stop observing</span><br><span class="line">observer.disconnect();</span><br></pre></td></tr></table></figure>
+
+
+	
+
+	</div>
+  <a type="button" href="/2020/12/18/利用MutationObserver-API追踪DOM的修改/#more" class="btn btn-default more">Read More</a>
+</div>
+
+-->
+<div class="entry">
+  <div class="row">
+	
+	
+		<p>之前写爬虫的时候，经常需要从界面入手，找到自己想要的数据，然后看网络请求，来搜索是哪个api返回的数据，一般情况下，都能从网络请求中发现想要的数据。但是当数据做了混淆之后，很多数据是没有办法直接从api中搜索到的。这时候就可以用到<code>MutationObserver</code> API。</p>
+<p>MDN上的描述<code>The MutationObserver interface provides the ability to watch for changes being made to the DOM tree. </code>。简单翻译一下就是，这个接口提供了监控DOM树变化的能力。</p>
+<h3 id="MDN的例子"><a href="#MDN的例子" class="headerlink" title="MDN的例子"></a>MDN的例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Select the node that will be observed for mutations</span><br><span class="line">const targetNode &#x3D; document.getElementById(&#39;some-id&#39;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Options for the observer (which mutations to observe)</span><br><span class="line">const config &#x3D; &#123; attributes: true, childList: true, subtree: true &#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Callback function to execute when mutations are observed</span><br><span class="line">const callback &#x3D; function(mutationsList, observer) &#123;</span><br><span class="line">    &#x2F;&#x2F; Use traditional &#39;for loops&#39; for IE 11</span><br><span class="line">    &#x2F;&#x2F;如果需要调试的话，只需要在callback里面执行debugger就可以了</span><br><span class="line">    for(const mutation of mutationsList) &#123;</span><br><span class="line">        if (mutation.type &#x3D;&#x3D;&#x3D; &#39;childList&#39;) &#123;</span><br><span class="line">            console.log(&#39;A child node has been added or removed.&#39;);</span><br><span class="line">        &#125;</span><br><span class="line">        else if (mutation.type &#x3D;&#x3D;&#x3D; &#39;attributes&#39;) &#123;</span><br><span class="line">            console.log(&#39;The &#39; + mutation.attributeName + &#39; attribute was modified.&#39;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Create an observer instance linked to the callback function</span><br><span class="line">const observer &#x3D; new MutationObserver(callback);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Start observing the target node for configured mutations</span><br><span class="line">observer.observe(targetNode, config);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Later, you can stop observing</span><br><span class="line">observer.disconnect();</span><br></pre></td></tr></table></figure>
+
+
+	
+	</div>
+  <a type="button" href="/2020/12/18/利用MutationObserver-API追踪DOM的修改/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2020/12/13/rvictl-iOS网络数据分析工具/" >rvictl-iOS网络数据分析工具</a>
 		</h3>
 		</div>
@@ -662,19 +710,21 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/密码学/">密码学<span>1</span></a></li>
-		
 			<li><a href="/tags/编译器/">编译器<span>1</span></a></li>
-		
-			<li><a href="/tags/redis/">redis<span>1</span></a></li>
-		
-			<li><a href="/tags/macOS/">macOS<span>3</span></a></li>
-		
-			<li><a href="/tags/算法/">算法<span>1</span></a></li>
 		
 			<li><a href="/tags/libuv/">libuv<span>1</span></a></li>
 		
 			<li><a href="/tags/JavaScript/">JavaScript<span>1</span></a></li>
+		
+			<li><a href="/tags/redis/">redis<span>1</span></a></li>
+		
+			<li><a href="/tags/算法/">算法<span>1</span></a></li>
+		
+			<li><a href="/tags/密码学/">密码学<span>1</span></a></li>
+		
+			<li><a href="/tags/Web/">Web<span>1</span></a></li>
+		
+			<li><a href="/tags/macOS/">macOS<span>3</span></a></li>
 		
 		 
 		</ul>
@@ -686,6 +736,10 @@
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2020/12/18/利用MutationObserver-API追踪DOM的修改/" ><i class="fa fa-file-o"></i>利用MutationObserver API追踪DOM...</a>
+      </li>
     
       <li>
         <a href="/2020/12/13/rvictl-iOS网络数据分析工具/" ><i class="fa fa-file-o"></i>rvictl-iOS网络数据分析工具</a>
@@ -701,10 +755,6 @@
     
       <li>
         <a href="/2020/11/12/libuv初探/" ><i class="fa fa-file-o"></i>libuv初探</a>
-      </li>
-    
-      <li>
-        <a href="/2020/11/02/redis分布式锁的实现/" ><i class="fa fa-file-o"></i>redis分布式锁的实现</a>
       </li>
     
   </ul>

@@ -1,0 +1,303 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>利用MutationObserver API追踪DOM的修改 | xiaodang&#39;s blog</title>
+  <meta name="author" content="xiaodang">
+  
+  <meta name="description" content="之前写爬虫的时候，经常需要从界面入手，找到自己想要的数据，然后看网络请求，来搜索是哪个api返回的数据，一般情况下，都能从网络请求中发现想要的数据。但是当数据做了混淆之后，很多数据是没有办法直接从api中搜索到的。这时候就可以用到MutationObserver API。
+MDN上的描述The MutationObserver interface provides the ability to watch for changes being made to the DOM tree. 。简单翻译一下就是，这个接口提供了监控DOM树变化的能力。
+MDN的例子12345678910111213141516171819202122232425262728&amp;#x2F;&amp;#x2F; Select the node that will be observed for mutationsconst targetNode &amp;#x3D; document.getElementById(&amp;#39;some-id&amp;#39;);&amp;#x2F;&amp;#x2F; Options for the observer (which mutations to observe)const config &amp;#x3D; &amp;#123; attributes: true, childList: true, subtree: true &amp;#125;;&amp;#x2F;&amp;#x2F; Callback function to execute when mutations are observedconst callback &amp;#x3D; function(mutationsList, observer) &amp;#123;    &amp;#x2F;&amp;#x2F; Use traditional &amp;#39;for loops&amp;#39; for IE 11    &amp;#x2F;&amp;#x2F;如果需要调试的话，只需要在callback里面执行debugger就可以了    for(const mutation of mutationsList) &amp;#123;        if (mutation.type &amp;#x3D;&amp;#x3D;&amp;#x3D; &amp;#39;childList&amp;#39;) &amp;#123;            console.log(&amp;#39;A child node has been added or removed.&amp;#39;);        &amp;#125;        else if (mutation.type &amp;#x3D;&amp;#x3D;&amp;#x3D; &amp;#39;attributes&amp;#39;) &amp;#123;            console.log(&amp;#39;The &amp;#39; + mutation.attributeName + &amp;#39; attribute was modified.&amp;#39;);        &amp;#125;    &amp;#125;&amp;#125;;&amp;#x2F;&amp;#x2F; Create an observer instance linked to the callback functionconst observer &amp;#x3D; new MutationObserver(callback);&amp;#x2F;&amp;#x2F; Start observing the target node for configured mutationsobserver.observe(targetNode, config);&amp;#x2F;&amp;#x2F; Later, you can stop observingobserver.disconnect();"> 
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="利用MutationObserver API追踪DOM的修改"/>
+  <meta property="og:site_name" content="xiaodang&#39;s blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="xiaodang&#39;s blog" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1XXD3NYJLC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1XXD3NYJLC');
+</script>
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+	style="background-color:transparent;">
+	<div class="container">
+		<!-- navbar-header -->
+		<button type="button" class=" navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="navbar-text">
+				MENU
+			</span>
+		</button>
+		<a class="navbar-brand" href="/">xiaodang&#39;s blog</a>
+		<div class="collapse navbar-collapse nav-menu" style="height: auto;position: absolute;top: 0px;right: 100px;">
+			<ul class="nav navbar-nav">
+				
+				<li>
+					<a href="/archives" title="All the articles.">
+						<i class=""></i>Archives
+					</a>
+				</li>
+				
+				<li>
+					<a href="/categories" title="All the categories.">
+						<i class=""></i>Categories
+					</a>
+				</li>
+				
+				<li>
+					<a href="/tags" title="All the tags.">
+						<i class=""></i>Tags
+					</a>
+				</li>
+				
+				<li>
+					<a href="/about" title="About me.">
+						<i class=""></i>About
+					</a>
+				</li>
+				
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 利用MutationObserver API追踪DOM的修改</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>之前写爬虫的时候，经常需要从界面入手，找到自己想要的数据，然后看网络请求，来搜索是哪个api返回的数据，一般情况下，都能从网络请求中发现想要的数据。但是当数据做了混淆之后，很多数据是没有办法直接从api中搜索到的。这时候就可以用到<code>MutationObserver</code> API。</p>
+<p>MDN上的描述<code>The MutationObserver interface provides the ability to watch for changes being made to the DOM tree. </code>。简单翻译一下就是，这个接口提供了监控DOM树变化的能力。</p>
+<h3 id="MDN的例子"><a href="#MDN的例子" class="headerlink" title="MDN的例子"></a>MDN的例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Select the node that will be observed for mutations</span><br><span class="line">const targetNode &#x3D; document.getElementById(&#39;some-id&#39;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Options for the observer (which mutations to observe)</span><br><span class="line">const config &#x3D; &#123; attributes: true, childList: true, subtree: true &#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Callback function to execute when mutations are observed</span><br><span class="line">const callback &#x3D; function(mutationsList, observer) &#123;</span><br><span class="line">    &#x2F;&#x2F; Use traditional &#39;for loops&#39; for IE 11</span><br><span class="line">    &#x2F;&#x2F;如果需要调试的话，只需要在callback里面执行debugger就可以了</span><br><span class="line">    for(const mutation of mutationsList) &#123;</span><br><span class="line">        if (mutation.type &#x3D;&#x3D;&#x3D; &#39;childList&#39;) &#123;</span><br><span class="line">            console.log(&#39;A child node has been added or removed.&#39;);</span><br><span class="line">        &#125;</span><br><span class="line">        else if (mutation.type &#x3D;&#x3D;&#x3D; &#39;attributes&#39;) &#123;</span><br><span class="line">            console.log(&#39;The &#39; + mutation.attributeName + &#39; attribute was modified.&#39;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Create an observer instance linked to the callback function</span><br><span class="line">const observer &#x3D; new MutationObserver(callback);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Start observing the target node for configured mutations</span><br><span class="line">observer.observe(targetNode, config);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Later, you can stop observing</span><br><span class="line">observer.disconnect();</span><br></pre></td></tr></table></figure>
+
+
+	  <div class="article-footer-copyright">
+    本博客采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议(CC BY-NC-SA 4.0) 发布.</a>
+    <br/>
+    转载请注明来自:<a href="https://xiaodang.github.io/" >xiaodang's blog</a>
+</div>
+
+	</div>
+
+	
+	<span id="/2020/12/18/%E5%88%A9%E7%94%A8MutationObserver-API%E8%BF%BD%E8%B8%AADOM%E7%9A%84%E4%BF%AE%E6%94%B9/" class="leancloud-visitors view" data-flag-title="利用MutationObserver API追踪DOM的修改">
+		<em class="post-meta-item-text"> Page View </em> <i class="leancloud-visitors-count"></i>
+	</span>
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2020/12/13/rvictl-iOS网络数据分析工具/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+-->
+	
+		<section id="comments" class="comments">
+			<style>
+			.comments{margin:30px;padding:10px;background:rgb(0, 0, 0)}
+			@media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#000}}
+			</style>
+			<div id="vcomment" class="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+var valineConfig = {"enable":true,"appId":"CBHum5579cticmvCz5yUpSh0-gzGzoHsz","appKey":"Az1yTaXRAOJOnHgP8CLAe4su","placeholder":"提交评论时留下邮箱收到回复后将自动通知","visitor":true,"avatar":"monsterid","requiredFields":["nick","mail"]}
+valineConfig.el='#vcomment';
+new Valine(valineConfig);
+    // new Valine({
+    //     el: '#vcomment',
+    //     appId: "",
+    //     appKey: "",
+    //     placeholder: "提交评论时留下邮箱收到回复后将自动通知",
+    //     avatar:"monsterid",
+    //     visitor: "true",
+    //     requiredFields: "nick,mail".split(','),
+    // });
+</script>
+
+		</section>
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2020-12-18 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/Web/">Web<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+		
+
+	</div>
+	
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2020 xiaodang's Blog
+  
+      powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. 
+      <!-- Theme <a href="https://github.com/Ares-X/hexo-theme-freemind.bithack" target="_blank">freemind.bithack</a>   -->
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
