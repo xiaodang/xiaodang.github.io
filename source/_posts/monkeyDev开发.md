@@ -13,3 +13,8 @@ tags:
 
 ### 如何查看ipa是否加密
 otool -l Target | grep -A 4 LC_ENCRYPTION_INFO
+
+### cycrpt 打印当前界面的UI结构
+```
+cy# UIApp.keyWindow.recursiveDescription().toString()
+```
