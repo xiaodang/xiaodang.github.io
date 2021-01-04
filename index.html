@@ -309,7 +309,8 @@
 <h3 id="坑1-签名失败"><a href="#坑1-签名失败" class="headerlink" title="坑1 签名失败"></a>坑1 签名失败</h3><p>安装完后mokeyDev之后，在XCode创建一个新项目，但是对于一直报错无法签名，最后查资料可以在target的Build Settings里面增加一个自定义配置，<code>CODE_SIGNING_ALLOWED=NO</code>，最后变异成功。</p>
 <h3 id="坑2-无法找到libstdc-类库"><a href="#坑2-无法找到libstdc-类库" class="headerlink" title="坑2 无法找到libstdc++类库"></a>坑2 无法找到libstdc++类库</h3><p>这个比较常见，是因为xcode移除了libstdcc，如果类库依赖的话，只需要找到放在对应目录下就可以。</p>
 <h3 id="如何查看ipa是否加密"><a href="#如何查看ipa是否加密" class="headerlink" title="如何查看ipa是否加密"></a>如何查看ipa是否加密</h3><p>otool -l Target | grep -A 4 LC_ENCRYPTION_INFO</p>
-<h3 id="cycrpt-打印当前界面的UI结构"><a href="#cycrpt-打印当前界面的UI结构" class="headerlink" title="cycrpt 打印当前界面的UI结构"></a>cycrpt 打印当前界面的UI结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cy# UIApp.keyWindow.recursiveDescription().toString()</span><br></pre></td></tr></table></figure>
+<h3 id="cycrpt-打印当前界面的UI结构"><a href="#cycrpt-打印当前界面的UI结构" class="headerlink" title="cycrpt 打印当前界面的UI结构"></a>cycrpt 打印当前界面的UI结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cy# UIApp.keyWindow.recursiveDescription().toString()</span><br><span class="line">c# [[UIApp keyWindow] _autolayoutTrace].toString()</span><br></pre></td></tr></table></figure>
+<h3 id="find-controller"><a href="#find-controller" class="headerlink" title="find controller"></a>find controller</h3>
 	
 
 	</div>
@@ -325,7 +326,8 @@
 <h3 id="坑1-签名失败"><a href="#坑1-签名失败" class="headerlink" title="坑1 签名失败"></a>坑1 签名失败</h3><p>安装完后mokeyDev之后，在XCode创建一个新项目，但是对于一直报错无法签名，最后查资料可以在target的Build Settings里面增加一个自定义配置，<code>CODE_SIGNING_ALLOWED=NO</code>，最后变异成功。</p>
 <h3 id="坑2-无法找到libstdc-类库"><a href="#坑2-无法找到libstdc-类库" class="headerlink" title="坑2 无法找到libstdc++类库"></a>坑2 无法找到libstdc++类库</h3><p>这个比较常见，是因为xcode移除了libstdcc，如果类库依赖的话，只需要找到放在对应目录下就可以。</p>
 <h3 id="如何查看ipa是否加密"><a href="#如何查看ipa是否加密" class="headerlink" title="如何查看ipa是否加密"></a>如何查看ipa是否加密</h3><p>otool -l Target | grep -A 4 LC_ENCRYPTION_INFO</p>
-<h3 id="cycrpt-打印当前界面的UI结构"><a href="#cycrpt-打印当前界面的UI结构" class="headerlink" title="cycrpt 打印当前界面的UI结构"></a>cycrpt 打印当前界面的UI结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cy# UIApp.keyWindow.recursiveDescription().toString()</span><br></pre></td></tr></table></figure>
+<h3 id="cycrpt-打印当前界面的UI结构"><a href="#cycrpt-打印当前界面的UI结构" class="headerlink" title="cycrpt 打印当前界面的UI结构"></a>cycrpt 打印当前界面的UI结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cy# UIApp.keyWindow.recursiveDescription().toString()</span><br><span class="line">c# [[UIApp keyWindow] _autolayoutTrace].toString()</span><br></pre></td></tr></table></figure>
+<h3 id="find-controller"><a href="#find-controller" class="headerlink" title="find controller"></a>find controller</h3>
 	
 	</div>
   <a type="button" href="/2020/12/03/monkeyDev开发/#more" class="btn btn-default more">Read More</a>
@@ -728,23 +730,23 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
+			<li><a href="/tags/libuv/">libuv<span>1</span></a></li>
+		
+			<li><a href="/tags/JavaScript/">JavaScript<span>1</span></a></li>
+		
+			<li><a href="/tags/密码学/">密码学<span>1</span></a></li>
+		
+			<li><a href="/tags/算法/">算法<span>1</span></a></li>
+		
+			<li><a href="/tags/redis/">redis<span>1</span></a></li>
+		
 			<li><a href="/tags/逆向/">逆向<span>1</span></a></li>
 		
 			<li><a href="/tags/macOS/">macOS<span>3</span></a></li>
 		
 			<li><a href="/tags/编译器/">编译器<span>1</span></a></li>
 		
-			<li><a href="/tags/redis/">redis<span>1</span></a></li>
-		
-			<li><a href="/tags/算法/">算法<span>1</span></a></li>
-		
 			<li><a href="/tags/Web/">Web<span>1</span></a></li>
-		
-			<li><a href="/tags/libuv/">libuv<span>1</span></a></li>
-		
-			<li><a href="/tags/JavaScript/">JavaScript<span>1</span></a></li>
-		
-			<li><a href="/tags/密码学/">密码学<span>1</span></a></li>
 		
 		 
 		</ul>
@@ -804,7 +806,7 @@
   <div class="container-narrow">
   <footer> <p>
   
-  &copy; 2020 xiaodang's Blog
+  &copy; 2021 xiaodang's Blog
   
       powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. 
       <!-- Theme <a href="https://github.com/Ares-X/hexo-theme-freemind.bithack" target="_blank">freemind.bithack</a>   -->
