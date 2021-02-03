@@ -10,7 +10,7 @@
   <meta name="author" content="xiaodang">
   
   <meta name="description" content="今天进行iOS逆向开发，肯定会遇到很多坑，之前的坑都踩过，但是没有记录，这次记录一下。
-坑1 签名失败安装完后mokeyDev之后，在XCode创建一个新项目，但是对于一直报错无法签名，最后查资料可以在target的Build Settings里面增加一个自定义配置，CODE_SIGNING_ALLOWED=NO，最后变异成功。
+坑1 签名失败安装完后mokeyDev之后，在XCode创建一个新项目，但是对于一直报错无法签名，最后查资料可以在target的Build Settings里面增加一个自定义配置，CODE_SIGNING_ALLOWED=NO，最后编译成功。
 坑2 无法找到libstdc++类库这个比较常见，是因为xcode移除了libstdcc，如果类库依赖的话，只需要找到放在对应目录下就可以。
 如何查看ipa是否加密otool -l Target | grep -A 4 LC_ENCRYPTION_INFO
 cycrpt 打印当前界面的UI结构12cy# UIApp.keyWindow.recursiveDescription().toString()c# [[UIApp keyWindow] _autolayoutTrace].toString()
@@ -130,13 +130,15 @@ find controller">
 	  		
 
 	  <p>今天进行iOS逆向开发，肯定会遇到很多坑，之前的坑都踩过，但是没有记录，这次记录一下。</p>
-<h3 id="坑1-签名失败"><a href="#坑1-签名失败" class="headerlink" title="坑1 签名失败"></a>坑1 签名失败</h3><p>安装完后mokeyDev之后，在XCode创建一个新项目，但是对于一直报错无法签名，最后查资料可以在target的Build Settings里面增加一个自定义配置，<code>CODE_SIGNING_ALLOWED=NO</code>，最后变异成功。</p>
+<h3 id="坑1-签名失败"><a href="#坑1-签名失败" class="headerlink" title="坑1 签名失败"></a>坑1 签名失败</h3><p>安装完后mokeyDev之后，在XCode创建一个新项目，但是对于一直报错无法签名，最后查资料可以在target的Build Settings里面增加一个自定义配置，<code>CODE_SIGNING_ALLOWED=NO</code>，最后编译成功。</p>
 <h3 id="坑2-无法找到libstdc-类库"><a href="#坑2-无法找到libstdc-类库" class="headerlink" title="坑2 无法找到libstdc++类库"></a>坑2 无法找到libstdc++类库</h3><p>这个比较常见，是因为xcode移除了libstdcc，如果类库依赖的话，只需要找到放在对应目录下就可以。</p>
 <h3 id="如何查看ipa是否加密"><a href="#如何查看ipa是否加密" class="headerlink" title="如何查看ipa是否加密"></a>如何查看ipa是否加密</h3><p>otool -l Target | grep -A 4 LC_ENCRYPTION_INFO</p>
 <h3 id="cycrpt-打印当前界面的UI结构"><a href="#cycrpt-打印当前界面的UI结构" class="headerlink" title="cycrpt 打印当前界面的UI结构"></a>cycrpt 打印当前界面的UI结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cy# UIApp.keyWindow.recursiveDescription().toString()</span><br><span class="line">c# [[UIApp keyWindow] _autolayoutTrace].toString()</span><br></pre></td></tr></table></figure>
 <h3 id="find-controller"><a href="#find-controller" class="headerlink" title="find controller"></a>find controller</h3><p>var a = UIApp.windows[0].rootViewController.childViewControllers</p>
-<h3 id="lldb-debug-by-address"><a href="#lldb-debug-by-address" class="headerlink" title="lldb debug by address"></a>lldb debug by address</h3><p>debugserver localhost:9999 -x backboard -a 7844<br>breakpoint set -a 0x00000012<br>po [myObject valueForKey:@”aProperty”]<br>查找内存地址 正则表达式 image lookup -rn<br>breakpoint set -n “-[UIViewController viewDidLoad]” -C “po $arg1” -G1 // 打印所有符合条件的实例对象</p>
-<h3 id="frida"><a href="#frida" class="headerlink" title="frida"></a>frida</h3><p>frida –codeshare mrmacete/objc-method-observer -U  -p 6740<br>observeClass()<br>observeSomething(“-[NSURLRequest <em>setValue:forHTTPHeaderField</em>]”)</p>
+<h3 id="lldb-debug-by-address"><a href="#lldb-debug-by-address" class="headerlink" title="lldb debug by address"></a>lldb debug by address</h3><p>iproxy 9999 9999<br>iphone: debugserver localhost:9999 -x backboard -a 1597<br>mac: lldb :process connect connect://localhost:9999</p>
+<p>breakpoint set -a 0x00000012<br>po [myObject valueForKey:@”aProperty”]<br>查看内存偏移 image list -f -o<br>查找内存地址 正则表达式 image lookup -rn<br>breakpoint set -n “-[UIViewController viewDidLoad]” -C “po $arg1” -G1 // 打印所有符合条件的实例对象</p>
+<h3 id="frida"><a href="#frida" class="headerlink" title="frida"></a>frida</h3><p>objectc方法追踪<br>frida-trace -U -f cn.10086.app -m “-[CMClient requestBusinessCode:parameter:fource:success:failuer:]”</p>
+<p>观察函数调用<br>frida –codeshare mrmacete/objc-method-observer -U  -p 6740<br>加密函数追踪<br> frida -U  -l /Users/xiaodang/XDDATA/develop/practice/frida-learn/CC_hook.js –no-pause  -p 947<br>observeClass()<br>observeSomething(“-[NSURLRequest <em>setValue:forHTTPHeaderField</em>]”)</p>
 
 	  <div class="article-footer-copyright">
     本博客采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议(CC BY-NC-SA 4.0) 发布.</a>
@@ -232,7 +234,7 @@ new Valine(valineConfig);
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/编程/">编程<span>6</span></a></li>
+    <li><a href="/categories/编程/">编程<span>7</span></a></li>
   </li>
 
     </ul>
