@@ -6,18 +6,20 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>macOS如何打开新窗口执行脚本 | xiaodang&#39;s blog</title>
+  <title>GNU SCREEN配置以及动态设置标题 | xiaodang&#39;s blog</title>
   <meta name="author" content="xiaodang">
   
-  <meta name="description" content="今天需要写一个脚本同时ssh连接到不同到服务器执行任务，并实时观察log，所以需要写一个脚本打开新的terminal，查找后发现可以用macOS的osascript命令，记录一下：
-1osascript -e &amp;#x27;tell application &amp;quot;Terminal&amp;quot; to do script &amp;quot;ls&amp;quot;&amp;#x27;
+  <meta name="description" content="最近开始使用GNU的screen来管理terminal的窗口，但是当开窗口多的时候，会面临不知道每个窗口是做什么的，默认的窗口标题也非常不友好，官网文档也没太多描述，最后好不容易找到了设置方法，记录一下配置。
+.zshrc文件里添加如下配置
+123# dynamic titles for screenpreexec () &amp;#123;  echo -ne &amp;quot;\ek$&amp;#123;(s: :)1&amp;#125;\e\\&amp;quot;
 
-由于连接每次连接ssh都需要输入yes来信任host，可以在～/.ssh/config文件中添加StrictHostKeyChecking no来取消检查，这也可以方便脚本的执行，但是用完记得取消，否则这样做是不安全的。"> 
+.screenrc文件里添加如下配置
+1234567891011121314151617181920212223242526272829303132startup_message off# GNU Screen - main configuration file# All other .screenrc files will source this file to inherit settings.# Author: Christian Wills - cwills.sys@gmail.com# Allow bold colors - necessary for some reasonattrcolor b &amp;quot;.I&amp;quot;# Tell screen how to set colors. AB &amp;#x3D; background, AF&amp;#x3D;foregroundtermcapinfo xterm &amp;#39;Co#256:AB&amp;#x3D;\E[48;5;%dm:AF&amp;#x3D;\E[38;5;%dm&amp;#39;# Enables use of shift-PgUp and shift-PgDn# termcapinfo xterm|xterms|xs|rxvt ti@:te@termcapinfo xterm* ti@:te@# Erase background with current bg colordefbce &amp;quot;on&amp;quot;# Enable 256 color termterm xterm-256color# Cache 30000 lines for scroll backdefscrollback 30000# change command character from ctrl-a to ctrl-b (emacs users may want this)#escape ^Bb### pass commands to screen for describing windowsshelltitle &amp;#39;$ |zsh&amp;#39;### set captioncaption always &amp;#39;%&amp;#123;&amp;#x3D; kw&amp;#125;[ %&amp;#123;y&amp;#125;%H%&amp;#123;-&amp;#125; ][ %&amp;#x3D; %-Lw%&amp;#123;+b M&amp;#125;%n%f* %t%&amp;#123;-&amp;#125;%+LW %&amp;#x3D; ][ %&amp;#123;r&amp;#125;%l%&amp;#123;-&amp;#125; ][ %&amp;#123;c&amp;#125;%c%&amp;#123;-&amp;#125; ]&amp;#39;"> 
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="macOS如何打开新窗口执行脚本"/>
+  <meta property="og:title" content="GNU SCREEN配置以及动态设置标题"/>
   <meta property="og:site_name" content="xiaodang&#39;s blog"/>
 
   
@@ -110,7 +112,7 @@
 
 	
 		<div class="page-header">
-			<h1> macOS如何打开新窗口执行脚本</h1>
+			<h1> GNU SCREEN配置以及动态设置标题</h1>
 		</div>
 	
 
@@ -127,11 +129,12 @@
 	<div class="mypage">		
 	  		
 
-	  <p>今天需要写一个脚本同时ssh连接到不同到服务器执行任务，并实时观察log，所以需要写一个脚本打开新的terminal，查找后发现可以用macOS的osascript命令，记录一下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">osascript -e <span class="string">&#x27;tell application &quot;Terminal&quot; to do script &quot;ls&quot;&#x27;</span></span><br></pre></td></tr></table></figure>
+	  <p>最近开始使用GNU的screen来管理terminal的窗口，但是当开窗口多的时候，会面临不知道每个窗口是做什么的，默认的窗口标题也非常不友好，官网文档也没太多描述，最后好不容易找到了设置方法，记录一下配置。</p>
+<p>.zshrc文件里添加如下配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># dynamic titles for screen</span><br><span class="line">preexec () &#123;</span><br><span class="line">  echo -ne &quot;\ek$&#123;(s: :)1&#125;\e\\&quot;</span><br></pre></td></tr></table></figure>
 
-<p>由于连接每次连接ssh都需要输入yes来信任host，可以在<code>～/.ssh/config</code>文件中添加<code>StrictHostKeyChecking no</code>来取消检查，这也可以方便脚本的执行，但是用完记得取消，否则这样做是不安全的。</p>
-
+<p>.screenrc文件里添加如下配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">startup_message off</span><br><span class="line"></span><br><span class="line"># GNU Screen - main configuration file</span><br><span class="line"># All other .screenrc files will source this file to inherit settings.</span><br><span class="line"># Author: Christian Wills - cwills.sys@gmail.com</span><br><span class="line"></span><br><span class="line"># Allow bold colors - necessary for some reason</span><br><span class="line">attrcolor b &quot;.I&quot;</span><br><span class="line"></span><br><span class="line"># Tell screen how to set colors. AB &#x3D; background, AF&#x3D;foreground</span><br><span class="line">termcapinfo xterm &#39;Co#256:AB&#x3D;\E[48;5;%dm:AF&#x3D;\E[38;5;%dm&#39;</span><br><span class="line"># Enables use of shift-PgUp and shift-PgDn</span><br><span class="line"># termcapinfo xterm|xterms|xs|rxvt ti@:te@</span><br><span class="line">termcapinfo xterm* ti@:te@</span><br><span class="line"># Erase background with current bg color</span><br><span class="line">defbce &quot;on&quot;</span><br><span class="line"></span><br><span class="line"># Enable 256 color term</span><br><span class="line">term xterm-256color</span><br><span class="line"></span><br><span class="line"># Cache 30000 lines for scroll back</span><br><span class="line">defscrollback 30000</span><br><span class="line"></span><br><span class="line"># change command character from ctrl-a to ctrl-b (emacs users may want this)</span><br><span class="line">#escape ^Bb</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### pass commands to screen for describing windows</span><br><span class="line">shelltitle &#39;$ |zsh&#39;</span><br><span class="line"></span><br><span class="line">### set caption</span><br><span class="line">caption always &#39;%&#123;&#x3D; kw&#125;[ %&#123;y&#125;%H%&#123;-&#125; ][ %&#x3D; %-Lw%&#123;+b M&#125;%n%f* %t%&#123;-&#125;%+LW %&#x3D; ][ %&#123;r&#125;%l%&#123;-&#125; ][ %&#123;c&#125;%c%&#123;-&#125; ]&#39;</span><br></pre></td></tr></table></figure>
 	  <div class="article-footer-copyright">
     本博客采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议(CC BY-NC-SA 4.0) 发布.</a>
     <br/>
@@ -141,7 +144,7 @@
 	</div>
 
 	
-	<span id="/2020/11/16/macOS%E5%A6%82%E4%BD%95%E6%89%93%E5%BC%80%E6%96%B0%E7%AA%97%E5%8F%A3%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC/" class="leancloud-visitors view" data-flag-title="macOS如何打开新窗口执行脚本">
+	<span id="/2021/02/09/GNU-SCREEN%E9%85%8D%E7%BD%AE%E4%BB%A5%E5%8F%8A%E5%8A%A8%E6%80%81%E8%AE%BE%E7%BD%AE%E6%A0%87%E9%A2%98/" class="leancloud-visitors view" data-flag-title="GNU SCREEN配置以及动态设置标题">
 		<em class="post-meta-item-text"> Page View </em> <i class="leancloud-visitors-count"></i>
 	</span>
 	
@@ -152,13 +155,12 @@
 
     
     
-    <a href="/2020/12/03/monkeyDev开发/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2020/11/12/libuv初探/" type="button" class="btn btn-default ">Next<i
+    <a href="/2021/02/03/TCP超时问题调试/" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -215,7 +217,7 @@ new Valine(valineConfig);
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2020-11-16 
+	2021-02-09 
 	</div>
 	
 
@@ -234,14 +236,6 @@ new Valine(valineConfig);
 	
 
 	<!-- tags -->
-	
-	<div class="meta-widget">
-	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
-    <ul id="tags" class="tag_box list-unstyled collapse in">	  
-	    
-  <li><a href="/tags/macOS/">macOS<span>3</span></a></li>
-    </ul>
-	</div>
 		
 
 	<!-- toc -->

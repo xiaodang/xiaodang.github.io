@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>GNU SCREEN配置以及动态设置标题</title>
+      <link href="2021/02/09/GNU-SCREEN%E9%85%8D%E7%BD%AE%E4%BB%A5%E5%8F%8A%E5%8A%A8%E6%80%81%E8%AE%BE%E7%BD%AE%E6%A0%87%E9%A2%98/"/>
+      <url>2021/02/09/GNU-SCREEN%E9%85%8D%E7%BD%AE%E4%BB%A5%E5%8F%8A%E5%8A%A8%E6%80%81%E8%AE%BE%E7%BD%AE%E6%A0%87%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[<p>最近开始使用GNU的screen来管理terminal的窗口，但是当开窗口多的时候，会面临不知道每个窗口是做什么的，默认的窗口标题也非常不友好，官网文档也没太多描述，最后好不容易找到了设置方法，记录一下配置。</p><p>.zshrc文件里添加如下配置</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># dynamic titles for screen</span><br><span class="line">preexec () &#123;</span><br><span class="line">  echo -ne &quot;\ek$&#123;(s: :)1&#125;\e\\&quot;</span><br></pre></td></tr></table></figure><p>.screenrc文件里添加如下配置</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">startup_message off</span><br><span class="line"></span><br><span class="line"># GNU Screen - main configuration file</span><br><span class="line"># All other .screenrc files will source this file to inherit settings.</span><br><span class="line"># Author: Christian Wills - cwills.sys@gmail.com</span><br><span class="line"></span><br><span class="line"># Allow bold colors - necessary for some reason</span><br><span class="line">attrcolor b &quot;.I&quot;</span><br><span class="line"></span><br><span class="line"># Tell screen how to set colors. AB &#x3D; background, AF&#x3D;foreground</span><br><span class="line">termcapinfo xterm &#39;Co#256:AB&#x3D;\E[48;5;%dm:AF&#x3D;\E[38;5;%dm&#39;</span><br><span class="line"># Enables use of shift-PgUp and shift-PgDn</span><br><span class="line"># termcapinfo xterm|xterms|xs|rxvt ti@:te@</span><br><span class="line">termcapinfo xterm* ti@:te@</span><br><span class="line"># Erase background with current bg color</span><br><span class="line">defbce &quot;on&quot;</span><br><span class="line"></span><br><span class="line"># Enable 256 color term</span><br><span class="line">term xterm-256color</span><br><span class="line"></span><br><span class="line"># Cache 30000 lines for scroll back</span><br><span class="line">defscrollback 30000</span><br><span class="line"></span><br><span class="line"># change command character from ctrl-a to ctrl-b (emacs users may want this)</span><br><span class="line">#escape ^Bb</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### pass commands to screen for describing windows</span><br><span class="line">shelltitle &#39;$ |zsh&#39;</span><br><span class="line"></span><br><span class="line">### set caption</span><br><span class="line">caption always &#39;%&#123;&#x3D; kw&#125;[ %&#123;y&#125;%H%&#123;-&#125; ][ %&#x3D; %-Lw%&#123;+b M&#125;%n%f* %t%&#123;-&#125;%+LW %&#x3D; ][ %&#123;r&#125;%l%&#123;-&#125; ][ %&#123;c&#125;%c%&#123;-&#125; ]&#39;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 编程 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>TCP超时问题调试</title>
       <link href="2021/02/03/TCP%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98%E8%B0%83%E8%AF%95/"/>
       <url>2021/02/03/TCP%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98%E8%B0%83%E8%AF%95/</url>
