@@ -37,7 +37,7 @@ function compiler(input) {
 ### 词法分析
 词法分析就是把源代码中的“词素”(token)找出来，比如`3 + (4 - 2)`中的数字`3、4、2`，左括号`(`，右括号`）`，操作符`+、-`，函数名`add`。
 ```lisp
-input: 
+input:
 (add 3 (subtract 4 "2"))
 ```
 ```javascript
@@ -60,7 +60,7 @@ tokens:
         "value": "("
     },
     {
-        "type": "name",//-操作符 
+        "type": "name",//-操作符
         "value": "subtract"
     },
     {
@@ -395,4 +395,4 @@ function codeGenerator(node) {
     }
 }
 ```
-参考:[the-super-tiny-compiler](https://github.com/jamiebuilds/the-super-tiny-compiler])
+参考:[the-super-tiny-compiler](https://github.com/jamiebuilds/the-super-tiny-compiler)
