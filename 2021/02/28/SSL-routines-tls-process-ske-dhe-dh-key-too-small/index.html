@@ -6,18 +6,25 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>macOS如何打开新窗口执行脚本 | xiaodang&#39;s blog</title>
+  <title>SSL routines:tls_process_ske_dhe:dh key too small | xiaodang&#39;s blog</title>
   <meta name="author" content="xiaodang">
   
-  <meta name="description" content="今天需要写一个脚本同时ssh连接到不同到服务器执行任务，并实时观察log，所以需要写一个脚本打开新的terminal，查找后发现可以用macOS的osascript命令，记录一下：
-1osascript -e &amp;#x27;tell application &amp;quot;Terminal&amp;quot; to do script &amp;quot;ls&amp;quot;&amp;#x27;
+  <meta name="description" content="今天遇到一个问题,有一个第三方HTTP接口，在本地通过Node.JS可以正常访问，但是CentOS服务器无法访问，错误日志提示:Error: socket hang up
+这个错误很明显是socket网络层的错误，还没有到第三方到应用层。为了严重猜想，随便换一个HTTP接口，然后用curl测试，curl返回：curl: (35) error:141A318A:SSL routines:tls_process_ske_dhe:dh key too small。
+通过错误可以看出来是HTTPS中的SSL/TLS层的问题，通过GOOGLE，发现是目标服务器在握手中返回的加密算法的key长度不够。
+通过以下命令在我的机器上执行，可以查看目标服务器返回的key长度
+12openssl s_client -connect xxx:443 -cipher &amp;quot;EDH&amp;quot; | grep &amp;quot;Server Temp Key&amp;quot;openssl s_client -connect www.example.com:443 -cipher &amp;quot;DHE&amp;quot; | grep &amp;quot;Server Temp Key&amp;quot;
+以上命令返回中包含Server Temp Key: DH, 1024 bits，key的长度是1024。
+接着查看系统的加密策略，执行以下命令返回DEFAULT，继续搜索文档The default system-wide cryptographic policy level offers secure settings for current threat models. It allows the TLS 1.2 and 1.3 protocols, as well as the IKEv2 and SSH2 protocols. The RSA keys and Diffie-Hellman parameters are accepted if they are at least 2048 bits long.发现DEFAULT策略要求key的长度最少为2048
+12update-crypto-policies --show&amp;gt;DEFAULT
 
-由于连接每次连接ssh都需要输入yes来信任host，可以在～/.ssh/config文件中添加StrictHostKeyChecking no来取消检查，这也可以方便脚本的执行，但是用完记得取消，否则这样做是不安全的。"> 
+修改系统的加密策略:
+1update-crypto-policies --set LEGACY"> 
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="macOS如何打开新窗口执行脚本"/>
+  <meta property="og:title" content="SSL routines:tls_process_ske_dhe:dh key too small"/>
   <meta property="og:site_name" content="xiaodang&#39;s blog"/>
 
   
@@ -110,7 +117,7 @@
 
 	
 		<div class="page-header">
-			<h1> macOS如何打开新窗口执行脚本</h1>
+			<h1> SSL routines:tls_process_ske_dhe:dh key too small</h1>
 		</div>
 	
 
@@ -127,10 +134,19 @@
 	<div class="mypage">		
 	  		
 
-	  <p>今天需要写一个脚本同时ssh连接到不同到服务器执行任务，并实时观察log，所以需要写一个脚本打开新的terminal，查找后发现可以用macOS的osascript命令，记录一下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">osascript -e <span class="string">&#x27;tell application &quot;Terminal&quot; to do script &quot;ls&quot;&#x27;</span></span><br></pre></td></tr></table></figure>
+	  <p>今天遇到一个问题,有一个第三方HTTP接口，在本地通过Node.JS可以正常访问，但是CentOS服务器无法访问，错误日志提示:<code>Error: socket hang up</code></p>
+<p>这个错误很明显是socket网络层的错误，还没有到第三方到应用层。为了严重猜想，随便换一个HTTP接口，然后用curl测试，curl返回：<code>curl: (35) error:141A318A:SSL routines:tls_process_ske_dhe:dh key too small</code>。</p>
+<p>通过错误可以看出来是HTTPS中的SSL/TLS层的问题，通过GOOGLE，发现是目标服务器在握手中返回的加密算法的key长度不够。</p>
+<p>通过以下命令在我的机器上执行，可以查看目标服务器返回的key长度</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openssl s_client -connect xxx:443 -cipher <span class="string">&quot;EDH&quot;</span> | grep <span class="string">&quot;Server Temp Key&quot;</span></span><br><span class="line">openssl s_client -connect www.example.com:443 -cipher <span class="string">&quot;DHE&quot;</span> | grep <span class="string">&quot;Server Temp Key&quot;</span></span><br></pre></td></tr></table></figure>
+<p>以上命令返回中包含<code>Server Temp Key: DH, 1024 bits</code>，key的长度是1024。</p>
+<p>接着查看系统的加密策略，执行以下命令返回<code>DEFAULT</code>，继续搜索文档<code>The default system-wide cryptographic policy level offers secure settings for current threat models. It allows the TLS 1.2 and 1.3 protocols, as well as the IKEv2 and SSH2 protocols. The RSA keys and Diffie-Hellman parameters are accepted if they are at least 2048 bits long.</code>发现<code>DEFAULT</code>策略要求key的长度最少为2048</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">update-crypto-policies --show</span><br><span class="line">&gt;DEFAULT</span><br></pre></td></tr></table></figure>
 
-<p>由于连接每次连接ssh都需要输入yes来信任host，可以在<code>～/.ssh/config</code>文件中添加<code>StrictHostKeyChecking no</code>来取消检查，这也可以方便脚本的执行，但是用完记得取消，否则这样做是不安全的。</p>
+<p>修改系统的加密策略:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update-crypto-policies --set LEGACY</span><br></pre></td></tr></table></figure>
+
+<p>参考:<a target="_blank" rel="noopener" href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/security_hardening/using-the-system-wide-cryptographic-policies_security-hardening">USING SYSTEM-WIDE CRYPTOGRAPHIC POLICIES</a></p>
 
 	  <div class="article-footer-copyright">
     本博客采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议(CC BY-NC-SA 4.0) 发布.</a>
@@ -141,7 +157,7 @@
 	</div>
 
 	
-	<span id="/2020/11/16/macOS%E5%A6%82%E4%BD%95%E6%89%93%E5%BC%80%E6%96%B0%E7%AA%97%E5%8F%A3%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC/" class="leancloud-visitors view" data-flag-title="macOS如何打开新窗口执行脚本">
+	<span id="/2021/02/28/SSL-routines-tls-process-ske-dhe-dh-key-too-small/" class="leancloud-visitors view" data-flag-title="SSL routines:tls_process_ske_dhe:dh key too small">
 		<em class="post-meta-item-text"> Page View </em> <i class="leancloud-visitors-count"></i>
 	</span>
 	
@@ -152,13 +168,12 @@
 
     
     
-    <a href="/2020/12/03/monkeyDev开发/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2020/11/12/libuv初探/" type="button" class="btn btn-default ">Next<i
+    <a href="/2021/02/09/GNU-SCREEN配置以及动态设置标题/" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -215,7 +230,7 @@ new Valine(valineConfig);
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2020-11-16 
+	2021-02-28 
 	</div>
 	
 
@@ -234,14 +249,6 @@ new Valine(valineConfig);
 	
 
 	<!-- tags -->
-	
-	<div class="meta-widget">
-	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
-    <ul id="tags" class="tag_box list-unstyled collapse in">	  
-	    
-  <li><a href="/tags/macOS/">macOS<span>3</span></a></li>
-    </ul>
-	</div>
 		
 
 	<!-- toc -->

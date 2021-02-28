@@ -130,6 +130,66 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2021/02/28/SSL-routines-tls-process-ske-dhe-dh-key-too-small/" >SSL routines:tls_process_ske_dhe:dh key too small</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2021-02-28  </div>
+		</div>
+	</div>
+	
+
+
+			<!--
+<div class="entry">
+  <div class="row">
+	
+	
+		<p>今天遇到一个问题,有一个第三方HTTP接口，在本地通过Node.JS可以正常访问，但是CentOS服务器无法访问，错误日志提示:<code>Error: socket hang up</code></p>
+<p>这个错误很明显是socket网络层的错误，还没有到第三方到应用层。为了严重猜想，随便换一个HTTP接口，然后用curl测试，curl返回：<code>curl: (35) error:141A318A:SSL routines:tls_process_ske_dhe:dh key too small</code>。</p>
+<p>通过错误可以看出来是HTTPS中的SSL/TLS层的问题，通过GOOGLE，发现是目标服务器在握手中返回的加密算法的key长度不够。</p>
+<p>通过以下命令在我的机器上执行，可以查看目标服务器返回的key长度</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openssl s_client -connect xxx:443 -cipher <span class="string">&quot;EDH&quot;</span> | grep <span class="string">&quot;Server Temp Key&quot;</span></span><br><span class="line">openssl s_client -connect www.example.com:443 -cipher <span class="string">&quot;DHE&quot;</span> | grep <span class="string">&quot;Server Temp Key&quot;</span></span><br></pre></td></tr></table></figure>
+<p>以上命令返回中包含<code>Server Temp Key: DH, 1024 bits</code>，key的长度是1024。</p>
+<p>接着查看系统的加密策略，执行以下命令返回<code>DEFAULT</code>，继续搜索文档<code>The default system-wide cryptographic policy level offers secure settings for current threat models. It allows the TLS 1.2 and 1.3 protocols, as well as the IKEv2 and SSH2 protocols. The RSA keys and Diffie-Hellman parameters are accepted if they are at least 2048 bits long.</code>发现<code>DEFAULT</code>策略要求key的长度最少为2048</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">update-crypto-policies --show</span><br><span class="line">&gt;DEFAULT</span><br></pre></td></tr></table></figure>
+
+<p>修改系统的加密策略:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update-crypto-policies --set LEGACY</span><br></pre></td></tr></table></figure>
+	
+
+	</div>
+  <a type="button" href="/2021/02/28/SSL-routines-tls-process-ske-dhe-dh-key-too-small/#more" class="btn btn-default more">Read More</a>
+</div>
+
+-->
+<div class="entry">
+  <div class="row">
+	
+	
+		<p>今天遇到一个问题,有一个第三方HTTP接口，在本地通过Node.JS可以正常访问，但是CentOS服务器无法访问，错误日志提示:<code>Error: socket hang up</code></p>
+<p>这个错误很明显是socket网络层的错误，还没有到第三方到应用层。为了严重猜想，随便换一个HTTP接口，然后用curl测试，curl返回：<code>curl: (35) error:141A318A:SSL routines:tls_process_ske_dhe:dh key too small</code>。</p>
+<p>通过错误可以看出来是HTTPS中的SSL/TLS层的问题，通过GOOGLE，发现是目标服务器在握手中返回的加密算法的key长度不够。</p>
+<p>通过以下命令在我的机器上执行，可以查看目标服务器返回的key长度</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openssl s_client -connect xxx:443 -cipher <span class="string">&quot;EDH&quot;</span> | grep <span class="string">&quot;Server Temp Key&quot;</span></span><br><span class="line">openssl s_client -connect www.example.com:443 -cipher <span class="string">&quot;DHE&quot;</span> | grep <span class="string">&quot;Server Temp Key&quot;</span></span><br></pre></td></tr></table></figure>
+<p>以上命令返回中包含<code>Server Temp Key: DH, 1024 bits</code>，key的长度是1024。</p>
+<p>接着查看系统的加密策略，执行以下命令返回<code>DEFAULT</code>，继续搜索文档<code>The default system-wide cryptographic policy level offers secure settings for current threat models. It allows the TLS 1.2 and 1.3 protocols, as well as the IKEv2 and SSH2 protocols. The RSA keys and Diffie-Hellman parameters are accepted if they are at least 2048 bits long.</code>发现<code>DEFAULT</code>策略要求key的长度最少为2048</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">update-crypto-policies --show</span><br><span class="line">&gt;DEFAULT</span><br></pre></td></tr></table></figure>
+
+<p>修改系统的加密策略:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update-crypto-policies --set LEGACY</span><br></pre></td></tr></table></figure>
+	
+	</div>
+  <a type="button" href="/2021/02/28/SSL-routines-tls-process-ske-dhe-dh-key-too-small/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2021/02/09/GNU-SCREEN配置以及动态设置标题/" >GNU SCREEN配置以及动态设置标题</a>
 		</h3>
 		</div>
@@ -610,62 +670,6 @@
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2020/10/29/哈希函数的应用/" >哈希函数的应用</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2020-10-29  </div>
-		</div>
-	</div>
-	
-
-
-			<!--
-<div class="entry">
-  <div class="row">
-	
-	
-		<p>在计算机程序设计中，<code>哈希函数</code>(又名散列函数)把文本或者其他数据映射为整数。通常不同的输入对应不同的输出，但是有时候会发生碰撞(<code>collision</code>碰撞就是不同的输入对应相同的输出)。</p>
-<p><code>加密哈希函数</code>把文本或者二进制数据转化为<code>固定长度</code>的<code>哈希值</code>，并且具有<code>抗碰撞性</code>和<code>不可逆性</code>。</p>
-<h2 id="软件工程里的哈希"><a href="#软件工程里的哈希" class="headerlink" title="软件工程里的哈希"></a>软件工程里的哈希</h2><p>在程序中<code>哈希函数</code>通常被用来实现数据结构<code>hash-table</code>（哈希表，或者关联数组，或者字典）。</p>
-<p>python中的数据类型<code>dict</code>：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dict</span>=&#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;xiaoye&quot;</span>,<span class="string">&quot;age&quot;</span>:<span class="number">29</span>&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="加密哈希函数"><a href="#加密哈希函数" class="headerlink" title="加密哈希函数"></a>加密哈希函数</h2><p>在密码学中，<code>哈希函数</code>将任意大小的输入数据(例如文本消息)转换为固定大小的结果(例如256位)，被称为<code>哈希值</code>(或哈希码、消息摘要)。在计算机密码学中使用的哈希函数(哈希算法)被称为“<code>加密哈希函数</code>”。<code>SHA3-256</code>就是一个加密哈希函数，把任意输入转化为256位，例如，我们可以使用它计算helloworld的哈希值。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib,binascii</span><br><span class="line">sha3_256hash=hashlib.sha3_256(<span class="string">&#x27;helloworld&#x27;</span>.encode(<span class="string">&#x27;ascii&#x27;</span>)).digest()</span><br><span class="line">print(<span class="string">&quot;SHA3-256(&#x27;helloworld&#x27;) =&quot;</span>, binascii.hexlify(sha3_256hash))</span><br><span class="line"><span class="comment"># output:92dad9443e4dd6d70a7f11872101ebff87e21798e4fbb26fa4bf590eb440e71b</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="安全哈希函数"><a href="#安全哈希函数" class="headerlink" title="安全哈希函数"></a>安全哈希函数</h2>
-	
-
-	</div>
-  <a type="button" href="/2020/10/29/哈希函数的应用/#more" class="btn btn-default more">Read More</a>
-</div>
-
--->
-<div class="entry">
-  <div class="row">
-	
-	
-		<p>在计算机程序设计中，<code>哈希函数</code>(又名散列函数)把文本或者其他数据映射为整数。通常不同的输入对应不同的输出，但是有时候会发生碰撞(<code>collision</code>碰撞就是不同的输入对应相同的输出)。</p>
-<p><code>加密哈希函数</code>把文本或者二进制数据转化为<code>固定长度</code>的<code>哈希值</code>，并且具有<code>抗碰撞性</code>和<code>不可逆性</code>。</p>
-<h2 id="软件工程里的哈希"><a href="#软件工程里的哈希" class="headerlink" title="软件工程里的哈希"></a>软件工程里的哈希</h2><p>在程序中<code>哈希函数</code>通常被用来实现数据结构<code>hash-table</code>（哈希表，或者关联数组，或者字典）。</p>
-<p>python中的数据类型<code>dict</code>：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dict</span>=&#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;xiaoye&quot;</span>,<span class="string">&quot;age&quot;</span>:<span class="number">29</span>&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="加密哈希函数"><a href="#加密哈希函数" class="headerlink" title="加密哈希函数"></a>加密哈希函数</h2><p>在密码学中，<code>哈希函数</code>将任意大小的输入数据(例如文本消息)转换为固定大小的结果(例如256位)，被称为<code>哈希值</code>(或哈希码、消息摘要)。在计算机密码学中使用的哈希函数(哈希算法)被称为“<code>加密哈希函数</code>”。<code>SHA3-256</code>就是一个加密哈希函数，把任意输入转化为256位，例如，我们可以使用它计算helloworld的哈希值。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib,binascii</span><br><span class="line">sha3_256hash=hashlib.sha3_256(<span class="string">&#x27;helloworld&#x27;</span>.encode(<span class="string">&#x27;ascii&#x27;</span>)).digest()</span><br><span class="line">print(<span class="string">&quot;SHA3-256(&#x27;helloworld&#x27;) =&quot;</span>, binascii.hexlify(sha3_256hash))</span><br><span class="line"><span class="comment"># output:92dad9443e4dd6d70a7f11872101ebff87e21798e4fbb26fa4bf590eb440e71b</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="安全哈希函数"><a href="#安全哈希函数" class="headerlink" title="安全哈希函数"></a>安全哈希函数</h2>
-	
-	</div>
-  <a type="button" href="/2020/10/29/哈希函数的应用/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -717,7 +721,7 @@
 		
 			<li><a href="/categories/算法/">算法<span>1</span></a></li>
 		
-			<li><a href="/categories/编程/">编程<span>7</span></a></li>
+			<li><a href="/categories/编程/">编程<span>8</span></a></li>
 		
 		</ul>
 	</div>
@@ -728,23 +732,23 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/Web/">Web<span>1</span></a></li>
+			<li><a href="/tags/算法/">算法<span>1</span></a></li>
 		
-			<li><a href="/tags/redis/">redis<span>1</span></a></li>
+			<li><a href="/tags/Web/">Web<span>1</span></a></li>
 		
 			<li><a href="/tags/macOS/">macOS<span>3</span></a></li>
 		
-			<li><a href="/tags/算法/">算法<span>1</span></a></li>
-		
-			<li><a href="/tags/逆向/">逆向<span>1</span></a></li>
-		
 			<li><a href="/tags/libuv/">libuv<span>1</span></a></li>
-		
-			<li><a href="/tags/JavaScript/">JavaScript<span>1</span></a></li>
 		
 			<li><a href="/tags/编译器/">编译器<span>1</span></a></li>
 		
+			<li><a href="/tags/JavaScript/">JavaScript<span>1</span></a></li>
+		
+			<li><a href="/tags/逆向/">逆向<span>1</span></a></li>
+		
 			<li><a href="/tags/密码学/">密码学<span>1</span></a></li>
+		
+			<li><a href="/tags/redis/">redis<span>1</span></a></li>
 		
 		 
 		</ul>
@@ -756,6 +760,10 @@
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2021/02/28/SSL-routines-tls-process-ske-dhe-dh-key-too-small/" ><i class="fa fa-file-o"></i>SSL routines:tls_process_sk...</a>
+      </li>
     
       <li>
         <a href="/2021/02/09/GNU-SCREEN配置以及动态设置标题/" ><i class="fa fa-file-o"></i>GNU SCREEN配置以及动态设置标题</a>
@@ -771,10 +779,6 @@
     
       <li>
         <a href="/2020/12/18/利用MutationObserver-API追踪DOM的修改/" ><i class="fa fa-file-o"></i>利用MutationObserver API追踪DOM...</a>
-      </li>
-    
-      <li>
-        <a href="/2020/12/13/rvictl-iOS网络数据分析工具/" ><i class="fa fa-file-o"></i>rvictl-iOS网络数据分析工具</a>
       </li>
     
   </ul>
