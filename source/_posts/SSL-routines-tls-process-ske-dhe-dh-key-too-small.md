@@ -30,4 +30,8 @@ update-crypto-policies --show
 update-crypto-policies --set LEGACY
 ```
 
-参考:[USING SYSTEM-WIDE CRYPTOGRAPHIC POLICIES](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/security_hardening/using-the-system-wide-cryptographic-policies_security-hardening)
+参考:
+
+[USING SYSTEM-WIDE CRYPTOGRAPHIC POLICIES](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/security_hardening/using-the-system-wide-cryptographic-policies_security-hardening)
+[HTTP Server Test Error "dh Key Too Small"](https://docs.thousandeyes.com/product-documentation/tests/http-server-test-error-dh-key-too-small)
+
