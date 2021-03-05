@@ -130,6 +130,72 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2020/11/02/redis分布式锁的实现/" >redis分布式锁的实现</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2020-11-02  </div>
+		</div>
+	</div>
+	
+
+
+			<!--
+<div class="entry">
+  <div class="row">
+	
+	
+		<p>在并发场景下，经常需要对某些资源进行互斥的操作。在单服务器系统我们常用本地锁来避免并发带来的问题，然而，当服务采用集群方式部署时，本地锁无法在多个服务器之间生效，这时候保证数据的一致性就需要分布式锁来实现。</p>
+<p>比如用户在网页和手机端同时下单，对余额进行减操作，如果没有合理的锁对余额进行保护，那最终用户对余额很有可能就会变得错乱。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">用户A网页端                               用户A手机端</span><br><span class="line"></span><br><span class="line">1 balance&#x3D;db.getUserBalance()</span><br><span class="line">2                                        balance&#x3D;db.getUserBalance()</span><br><span class="line">3 db.saveUserBalance(balance-100)</span><br><span class="line">4                                        db.saveUserBalance(balance-100)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="redis单例模式下的正确实现"><a href="#redis单例模式下的正确实现" class="headerlink" title="redis单例模式下的正确实现"></a>redis单例模式下的正确实现</h2><p>要正确的实现锁，必须保证:</p>
+<ul>
+<li>互斥 - 同一时间只能有一个客户端持有锁</li>
+<li>无死锁 - 即使锁定资源的客户端崩溃了，其他客户端也可以获得锁</li>
+<li>锁的身份验证 - 锁的释放必须由锁的持有客户端释放，保证锁的安全释放</li>
+</ul>
+<p>在redis中可以通过设置<code>SET NX PX </code>给资源上锁，NX表示只会在资源不存在的情况下设置成功，PX表示这个资源的过期时间(单位:毫秒),同时key的值被设置成了一个随机的值，这个值必须在所有的客户端中保证唯一。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET resource_name my_random_value NX PX 30000</span><br></pre></td></tr></table></figure>
+<p><code>NX</code>保证了资源的互斥</p>
+<p><code>PX</code>保证了无死锁。即便持有锁的客户端崩溃了，也会在过期时间之后，释放锁</p>
+	
+
+	</div>
+  <a type="button" href="/2020/11/02/redis分布式锁的实现/#more" class="btn btn-default more">Read More</a>
+</div>
+
+-->
+<div class="entry">
+  <div class="row">
+	
+	
+		<p>在并发场景下，经常需要对某些资源进行互斥的操作。在单服务器系统我们常用本地锁来避免并发带来的问题，然而，当服务采用集群方式部署时，本地锁无法在多个服务器之间生效，这时候保证数据的一致性就需要分布式锁来实现。</p>
+<p>比如用户在网页和手机端同时下单，对余额进行减操作，如果没有合理的锁对余额进行保护，那最终用户对余额很有可能就会变得错乱。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">用户A网页端                               用户A手机端</span><br><span class="line"></span><br><span class="line">1 balance&#x3D;db.getUserBalance()</span><br><span class="line">2                                        balance&#x3D;db.getUserBalance()</span><br><span class="line">3 db.saveUserBalance(balance-100)</span><br><span class="line">4                                        db.saveUserBalance(balance-100)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="redis单例模式下的正确实现"><a href="#redis单例模式下的正确实现" class="headerlink" title="redis单例模式下的正确实现"></a>redis单例模式下的正确实现</h2><p>要正确的实现锁，必须保证:</p>
+<ul>
+<li>互斥 - 同一时间只能有一个客户端持有锁</li>
+<li>无死锁 - 即使锁定资源的客户端崩溃了，其他客户端也可以获得锁</li>
+<li>锁的身份验证 - 锁的释放必须由锁的持有客户端释放，保证锁的安全释放</li>
+</ul>
+<p>在redis中可以通过设置<code>SET NX PX </code>给资源上锁，NX表示只会在资源不存在的情况下设置成功，PX表示这个资源的过期时间(单位:毫秒),同时key的值被设置成了一个随机的值，这个值必须在所有的客户端中保证唯一。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET resource_name my_random_value NX PX 30000</span><br></pre></td></tr></table></figure>
+<p><code>NX</code>保证了资源的互斥</p>
+<p><code>PX</code>保证了无死锁。即便持有锁的客户端崩溃了，也会在过期时间之后，释放锁</p>
+	
+	</div>
+  <a type="button" href="/2020/11/02/redis分布式锁的实现/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2020/10/29/哈希函数的应用/" >哈希函数的应用</a>
 		</h3>
 		</div>
@@ -397,7 +463,7 @@
 		
 			<li><a href="/categories/开发工具/">开发工具<span>2</span></a></li>
 		
-			<li><a href="/categories/算法/">算法<span>1</span></a></li>
+			<li><a href="/categories/算法/">算法<span>2</span></a></li>
 		
 			<li><a href="/categories/编程/">编程<span>8</span></a></li>
 		
@@ -410,23 +476,23 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/redis/">redis<span>1</span></a></li>
-		
-			<li><a href="/tags/Web/">Web<span>1</span></a></li>
-		
 			<li><a href="/tags/逆向/">逆向<span>1</span></a></li>
+		
+			<li><a href="/tags/redis/">redis<span>1</span></a></li>
 		
 			<li><a href="/tags/密码学/">密码学<span>1</span></a></li>
 		
+			<li><a href="/tags/算法/">算法<span>2</span></a></li>
+		
 			<li><a href="/tags/macOS/">macOS<span>3</span></a></li>
-		
-			<li><a href="/tags/libuv/">libuv<span>1</span></a></li>
-		
-			<li><a href="/tags/编译器/">编译器<span>1</span></a></li>
 		
 			<li><a href="/tags/JavaScript/">JavaScript<span>1</span></a></li>
 		
-			<li><a href="/tags/算法/">算法<span>1</span></a></li>
+			<li><a href="/tags/编译器/">编译器<span>1</span></a></li>
+		
+			<li><a href="/tags/Web/">Web<span>1</span></a></li>
+		
+			<li><a href="/tags/libuv/">libuv<span>1</span></a></li>
 		
 		 
 		</ul>
@@ -438,6 +504,10 @@
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2021/03/05/什么是霍夫曼编码-Huffman-Coding/" ><i class="fa fa-file-o"></i>什么是霍夫曼编码(Huffman Coding)</a>
+      </li>
     
       <li>
         <a href="/2021/02/28/SSL-routines-tls-process-ske-dhe-dh-key-too-small/" ><i class="fa fa-file-o"></i>SSL routines:tls_process_sk...</a>
@@ -453,10 +523,6 @@
     
       <li>
         <a href="/2020/12/20/如何调试招商银行App内置的webview/" ><i class="fa fa-file-o"></i>如何调试招商银行App内置的webview</a>
-      </li>
-    
-      <li>
-        <a href="/2020/12/18/利用MutationObserver-API追踪DOM的修改/" ><i class="fa fa-file-o"></i>利用MutationObserver API追踪DOM...</a>
       </li>
     
   </ul>

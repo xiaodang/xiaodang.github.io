@@ -6,18 +6,25 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>二叉树的最大深度 | xiaodang&#39;s blog</title>
+  <title>什么是霍夫曼编码(Huffman Coding) | xiaodang&#39;s blog</title>
   <meta name="author" content="xiaodang">
   
-  <meta name="description" content="给定一个二叉树，找出其最大深度。
-二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。
-12345678            1          /   \         2      3        / \    / \        4   5  6   7                   \                    8output: 4
-123456789//递归实现function maxDepth(node)&amp;#123;    if(node==null)&amp;#123;//终止条件terminating case        return 0;    &amp;#125;    let lefeDepth=maxDepth(node.left);    let rightDepth=maxDepth(node.right);    return Math.max(lefeDepth,rightDepth)+1;&amp;#125;"> 
+  <meta name="description" content="本文翻译自:What is Huffman Coding?
+什么是哈夫曼编码霍夫曼编码算法是许多压缩算法的基石，如DEFLATE，它被用于PNG格式的图像和GZIP。
+为什么需要关注它你是否也曾想了解:
+
+如何在不丢失数据的情况下，对数据进行压缩？
+为什么某些数据的压缩效果要比其他数据的效果好？
+GZIP如何工作？
+
+5分钟内了解它假设我们需要压缩一个字符串(哈夫曼编码可以用于任何数据，但是字符串更好理解)。
+在被压缩的文本中，一些字符出现的频率总是比其他字符的高。霍夫曼编码利用这一事实，使得最常用的字符比不常用的字符占用更少的空间。
+编码字符串"> 
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="二叉树的最大深度"/>
+  <meta property="og:title" content="什么是霍夫曼编码(Huffman Coding)"/>
   <meta property="og:site_name" content="xiaodang&#39;s blog"/>
 
   
@@ -110,7 +117,7 @@
 
 	
 		<div class="page-header">
-			<h1> 二叉树的最大深度</h1>
+			<h1> 什么是霍夫曼编码(Huffman Coding)</h1>
 		</div>
 	
 
@@ -127,10 +134,34 @@
 	<div class="mypage">		
 	  		
 
-	  <p>给定一个二叉树，找出其最大深度。</p>
-<p>二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">            <span class="number">1</span></span><br><span class="line">          /   \</span><br><span class="line">         <span class="number">2</span>      <span class="number">3</span></span><br><span class="line">        / \    / \ </span><br><span class="line">       <span class="number">4</span>   <span class="number">5</span>  <span class="number">6</span>   <span class="number">7</span></span><br><span class="line">                   \</span><br><span class="line">                    <span class="number">8</span></span><br><span class="line">output: 4</span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//递归实现</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">maxDepth</span>(<span class="params">node</span>)</span>&#123;</span><br><span class="line">    <span class="function"><span class="title">if</span>(<span class="params">node==<span class="literal">null</span></span>)</span>&#123;<span class="comment">//终止条件terminating case</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> lefeDepth=maxDepth(node.left);</span><br><span class="line">    <span class="keyword">let</span> rightDepth=maxDepth(node.right);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.max(lefeDepth,rightDepth)+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+	  <p>本文翻译自:<a target="_blank" rel="noopener" href="https://www.baseclass.io/huffman-coding/">What is Huffman Coding?</a></p>
+<h2 id="什么是哈夫曼编码"><a href="#什么是哈夫曼编码" class="headerlink" title="什么是哈夫曼编码"></a>什么是哈夫曼编码</h2><p>霍夫曼编码算法是许多压缩算法的基石，如DEFLATE，它被用于PNG格式的图像和GZIP。</p>
+<h2 id="为什么需要关注它"><a href="#为什么需要关注它" class="headerlink" title="为什么需要关注它"></a>为什么需要关注它</h2><p>你是否也曾想了解:</p>
+<ul>
+<li>如何在不丢失数据的情况下，对数据进行压缩？</li>
+<li>为什么某些数据的压缩效果要比其他数据的效果好？</li>
+<li>GZIP如何工作？</li>
+</ul>
+<h2 id="5分钟内了解它"><a href="#5分钟内了解它" class="headerlink" title="5分钟内了解它"></a>5分钟内了解它</h2><p>假设我们需要压缩一个字符串(哈夫曼编码可以用于任何数据，但是字符串更好理解)。</p>
+<p>在被压缩的文本中，一些字符出现的频率总是比其他字符的高。霍夫曼编码利用这一事实，使得最常用的字符比不常用的字符占用更少的空间。</p>
+<h3 id="编码字符串"><a href="#编码字符串" class="headerlink" title="编码字符串"></a>编码字符串</h3><p>我们要编码的字符串引自Yoda说的话”do or do not”</p>
+<p><img src="https://www.baseclass.io/huffman-coding/yoda.png"></p>
+<p>“do or do not”的长度为12个字符。它有一些重复的字符，应该能够被很好的压缩。</p>
+<p>为了便于讨论，我们假设存储每个字符占用8bits(字符编码是另外一个话题)。这个句子共占用96个bits，使用霍夫曼编码我们可以做的更好。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/xiaodang/blog-image/img/20210305105151.png"></p>
+<p>首先我们创建一个树结构。我们的字符串中最常见的字符距树的根节点更近，最少见字符距离根节点更远。</p>
+<p>最常见的字符是’o’(出现了4次)和’ ‘(空格,出现了3次)。注意从根节点到这些字符的距离只需要两步，而’t’字符到根节点的距离是3步。</p>
+<p>现在，我们可以存储字符的路径来代替存储字符本身。</p>
+<p>我们从根节点开始，沿着树向下查找需要编码的字符。如果沿着左边的路径存0，沿着右边的路径存1。</p>
+<p>下图是如何使用这颗树来编码第一个字符’d’:<br><img src="https://cdn.jsdelivr.net/gh/xiaodang/blog-image/img/20210305110503.png"></p>
+<p>结果是<code>100</code>，3bit代替了8bit。很大的进步。编码后完整的字符串是:<br><img src="https://cdn.jsdelivr.net/gh/xiaodang/blog-image/img/20210305112400.png"></p>
+<p>我们用29个bit代替了96个bit，并且没有数据丢失。很棒！</p>
+<h3 id="解码字符串"><a href="#解码字符串" class="headerlink" title="解码字符串"></a>解码字符串</h3><p>为了解码字符串，我们只需要沿着每一个0(左侧分支)或者1(右侧分支)在从树的根节点开始查找，直到找到到达最后一个字符为止(没有子节点)。<br><img src="https://cdn.jsdelivr.net/gh/xiaodang/blog-image/img/20210305112945.png"></p>
+<h3 id="发送已编码的文本"><a href="#发送已编码的文本" class="headerlink" title="发送已编码的文本"></a>发送已编码的文本</h3><p>等等…当我们发送已经编码的文本给别人的时候，他们需要这个树吗？是的。为了正确解码字符串，对方需要同样的霍夫曼树。</p>
+<p>最简单但是低效的方法是，把树和已经压缩的数据一起发送。</p>
+<p>我们也可以在树上达成一致，然后在编码和解码任意字符串的时候使用同样的树。当我们可以提前预测字符的分布时，可以建立一个相对有效的树，而不需要首先看到我们要编码的特定事物(例如，我们可以对英语文本进行编码)</p>
+<p>另一个选择是发送足够的信息，让另一方构建与我们相同的树(这就是GZIP的工作方式)。例如，我们可以发送每个字符出现的总次数。但是我们必须小心，对于相同的文本块，可能存在不止一棵Huffman树，所以我们必须确保我们都以完全相同的方式构建树。</p>
+
 	  <div class="article-footer-copyright">
     本博客采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议(CC BY-NC-SA 4.0) 发布.</a>
     <br/>
@@ -140,7 +171,7 @@
 	</div>
 
 	
-	<span id="/2020/10/28/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6/" class="leancloud-visitors view" data-flag-title="二叉树的最大深度">
+	<span id="/2021/03/05/%E4%BB%80%E4%B9%88%E6%98%AF%E9%9C%8D%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81-Huffman-Coding/" class="leancloud-visitors view" data-flag-title="什么是霍夫曼编码(Huffman Coding)">
 		<em class="post-meta-item-text"> Page View </em> <i class="leancloud-visitors-count"></i>
 	</span>
 	
@@ -151,13 +182,12 @@
 
     
     
-    <a href="/2020/10/29/哈希函数的应用/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2020/10/27/用JavaScript实现一个简单的编译器/" type="button" class="btn btn-default ">Next<i
+    <a href="/2021/02/28/SSL-routines-tls-process-ske-dhe-dh-key-too-small/" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -214,7 +244,7 @@ new Valine(valineConfig);
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2020-10-28 
+	2021-03-05 
 	</div>
 	
 
@@ -249,7 +279,7 @@ new Valine(valineConfig);
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
 	   <div id="toc" class="toc collapse in">
 		   <span class="toc-title">Contents</span>
-			
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81"><span class="toc-article-text">什么是哈夫曼编码</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%85%B3%E6%B3%A8%E5%AE%83"><span class="toc-article-text">为什么需要关注它</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#5%E5%88%86%E9%92%9F%E5%86%85%E4%BA%86%E8%A7%A3%E5%AE%83"><span class="toc-article-text">5分钟内了解它</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%BC%96%E7%A0%81%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-article-text">编码字符串</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E8%A7%A3%E7%A0%81%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-article-text">解码字符串</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%8F%91%E9%80%81%E5%B7%B2%E7%BC%96%E7%A0%81%E7%9A%84%E6%96%87%E6%9C%AC"><span class="toc-article-text">发送已编码的文本</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
