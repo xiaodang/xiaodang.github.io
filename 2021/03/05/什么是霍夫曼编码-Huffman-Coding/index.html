@@ -144,16 +144,16 @@ GZIP如何工作？
 </ul>
 <h2 id="5分钟内了解它"><a href="#5分钟内了解它" class="headerlink" title="5分钟内了解它"></a>5分钟内了解它</h2><p>假设我们需要压缩一个字符串(哈夫曼编码可以用于任何数据，但是字符串更好理解)。</p>
 <p>在被压缩的文本中，一些字符出现的频率总是比其他字符的高。霍夫曼编码利用这一事实，使得最常用的字符比不常用的字符占用更少的空间。</p>
-<h3 id="编码字符串"><a href="#编码字符串" class="headerlink" title="编码字符串"></a>编码字符串</h3><p>我们要编码的字符串引自Yoda说的话”do or do not”</p>
+<h3 id="编码字符串"><a href="#编码字符串" class="headerlink" title="编码字符串"></a>编码字符串</h3><p>我们要编码的字符串引自Yoda说的话<code>do or do not</code></p>
 <p><img src="https://www.baseclass.io/huffman-coding/yoda.png"></p>
-<p>“do or do not”的长度为12个字符。它有一些重复的字符，应该能够被很好的压缩。</p>
+<p><code>do or do not</code>的长度为12个字符。它有一些重复的字符，应该能够被很好的压缩。</p>
 <p>为了便于讨论，我们假设存储每个字符占用8bits(字符编码是另外一个话题)。这个句子共占用96个bits，使用霍夫曼编码我们可以做的更好。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/xiaodang/blog-image/img/20210305105151.png"></p>
 <p>首先我们创建一个树结构。我们的字符串中最常见的字符距树的根节点更近，最少见字符距离根节点更远。</p>
-<p>最常见的字符是’o’(出现了4次)和’ ‘(空格,出现了3次)。注意从根节点到这些字符的距离只需要两步，而’t’字符到根节点的距离是3步。</p>
+<p>最常见的字符是<code>o</code>(出现了4次)和<code>_</code>(空格,出现了3次)。注意从根节点到这些字符的距离只需要两步，而’t’字符到根节点的距离是3步。</p>
 <p>现在，我们可以存储字符的路径来代替存储字符本身。</p>
 <p>我们从根节点开始，沿着树向下查找需要编码的字符。如果沿着左边的路径存0，沿着右边的路径存1。</p>
-<p>下图是如何使用这颗树来编码第一个字符’d’:<br><img src="https://cdn.jsdelivr.net/gh/xiaodang/blog-image/img/20210305110503.png"></p>
+<p>下图是如何使用这颗树来编码第一个字符<code>d</code>:<br><img src="https://cdn.jsdelivr.net/gh/xiaodang/blog-image/img/20210305110503.png"></p>
 <p>结果是<code>100</code>，3bit代替了8bit。很大的进步。编码后完整的字符串是:<br><img src="https://cdn.jsdelivr.net/gh/xiaodang/blog-image/img/20210305112400.png"></p>
 <p>我们用29个bit代替了96个bit，并且没有数据丢失。很棒！</p>
 <h3 id="解码字符串"><a href="#解码字符串" class="headerlink" title="解码字符串"></a>解码字符串</h3><p>为了解码字符串，我们只需要沿着每一个0(左侧分支)或者1(右侧分支)在从树的根节点开始查找，直到找到到达最后一个字符为止(没有子节点)。<br><img src="https://cdn.jsdelivr.net/gh/xiaodang/blog-image/img/20210305112945.png"></p>
