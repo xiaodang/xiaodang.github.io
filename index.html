@@ -130,6 +130,58 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2021/03/23/时间标准UTC、GMT、ISO8 061/" >时间标准UTC、GMT、ISO 8061</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2021-03-23  </div>
+		</div>
+	</div>
+	
+
+
+			<!--
+<div class="entry">
+  <div class="row">
+	
+	
+		<p>日常开发中，时间的格式化、存储、本地化经常让人疑惑，尤其是不同的编程语言中对于时间的处理方式又大相径庭，甚至同一个数据库中都有不同都存储方式，每次都要查文档。</p>
+<h3 id="JavaScript中时间的格式化"><a href="#JavaScript中时间的格式化" class="headerlink" title="JavaScript中时间的格式化"></a>JavaScript中时间的格式化</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># Converts a date to a string following the ISO 8601 Extended Format.</span><br><span class="line">&gt; <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">1616485415008</span>).toISOString()</span><br><span class="line"><span class="string">&#x27;2021-03-23T07:43:35.008Z&#x27;</span></span><br><span class="line"># Converts a date to a string using the UTC timezone.</span><br><span class="line">&gt; <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">1616485415008</span>).toUTCString()</span><br><span class="line"><span class="string">&#x27;Tue, 23 Mar 2021 07:43:35 GMT&#x27;</span></span><br><span class="line"># The toGMTString method converts a date to a string, using Internet GMT conventions.[Deprecated(被遗弃)]</span><br><span class="line">&gt; <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">1616485415008</span>).toGMTString()</span><br><span class="line"><span class="string">&#x27;Tue, 23 Mar 2021 07:43:35 GMT&#x27;</span></span><br></pre></td></tr></table></figure>
+<h3 id="UTC-VS-GMT"><a href="#UTC-VS-GMT" class="headerlink" title="UTC VS GMT"></a>UTC VS GMT</h3><p><code>GMT</code>和<code>UTC</code>是用来追踪时间的标准，而不是时间格式的标准。</p>
+<p><code>GMT</code>时间是通过地球自转来测量时间，但是地球自转并不规律，而且正在缓慢减速，因此格林尼治平时基于天文观测本身的缺陷，已经被原子钟报时的协调世界时（<code>UTC</code>）所取代。<code>UTC</code>是目前最主要的世界时间标准。</p>
+<h3 id="IOS-8061-时间格式的标准"><a href="#IOS-8061-时间格式的标准" class="headerlink" title="IOS-8061 时间格式的标准"></a>IOS-8061 时间格式的标准</h3><p><code>IOS-8061</code>是表示日期和时间的国际标准。<br>在日期和时间中，不同的标准可能需要不同的粒度级别，因此定义了六个级别。</p>
+<p><code>T</code>作为分隔符用来区分日期和时间，<code>Z</code>代表UTC。</p>
+<p>六种格式如下:</p>
+	
+
+	</div>
+  <a type="button" href="/2021/03/23/时间标准UTC、GMT、ISO8 061/#more" class="btn btn-default more">Read More</a>
+</div>
+
+-->
+<div class="entry">
+  <div class="row">
+	
+	
+		<p>日常开发中，时间的格式化、存储、本地化经常让人疑惑，尤其是不同的编程语言中对于时间的处理方式又大相径庭，甚至同一个数据库中都有不同都存储方式，每次都要查文档。</p>
+<h3 id="JavaScript中时间的格式化"><a href="#JavaScript中时间的格式化" class="headerlink" title="JavaScript中时间的格式化"></a>JavaScript中时间的格式化</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># Converts a date to a string following the ISO 8601 Extended Format.</span><br><span class="line">&gt; <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">1616485415008</span>).toISOString()</span><br><span class="line"><span class="string">&#x27;2021-03-23T07:43:35.008Z&#x27;</span></span><br><span class="line"># Converts a date to a string using the UTC timezone.</span><br><span class="line">&gt; <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">1616485415008</span>).toUTCString()</span><br><span class="line"><span class="string">&#x27;Tue, 23 Mar 2021 07:43:35 GMT&#x27;</span></span><br><span class="line"># The toGMTString method converts a date to a string, using Internet GMT conventions.[Deprecated(被遗弃)]</span><br><span class="line">&gt; <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">1616485415008</span>).toGMTString()</span><br><span class="line"><span class="string">&#x27;Tue, 23 Mar 2021 07:43:35 GMT&#x27;</span></span><br></pre></td></tr></table></figure>
+<h3 id="UTC-VS-GMT"><a href="#UTC-VS-GMT" class="headerlink" title="UTC VS GMT"></a>UTC VS GMT</h3><p><code>GMT</code>和<code>UTC</code>是用来追踪时间的标准，而不是时间格式的标准。</p>
+<p><code>GMT</code>时间是通过地球自转来测量时间，但是地球自转并不规律，而且正在缓慢减速，因此格林尼治平时基于天文观测本身的缺陷，已经被原子钟报时的协调世界时（<code>UTC</code>）所取代。<code>UTC</code>是目前最主要的世界时间标准。</p>
+<h3 id="IOS-8061-时间格式的标准"><a href="#IOS-8061-时间格式的标准" class="headerlink" title="IOS-8061 时间格式的标准"></a>IOS-8061 时间格式的标准</h3><p><code>IOS-8061</code>是表示日期和时间的国际标准。<br>在日期和时间中，不同的标准可能需要不同的粒度级别，因此定义了六个级别。</p>
+<p><code>T</code>作为分隔符用来区分日期和时间，<code>Z</code>代表UTC。</p>
+<p>六种格式如下:</p>
+	
+	</div>
+  <a type="button" href="/2021/03/23/时间标准UTC、GMT、ISO8 061/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2021/03/05/什么是霍夫曼编码-Huffman-Coding/" >什么是霍夫曼编码(Huffman Coding)</a>
 		</h3>
 		</div>
@@ -610,60 +662,6 @@
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2020/11/12/libuv初探/" >libuv初探</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2020-11-12  </div>
-		</div>
-	</div>
-	
-
-
-			<!--
-<div class="entry">
-  <div class="row">
-	
-	
-		<p>今天研究了一下Node使用的异步IO框架libuv,下面一张图显示了livuv在Node架构中的位置。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/xiaodang/blog-image/img/20201112091257.png"></p>
-<h2 id="libuv是什么"><a href="#libuv是什么" class="headerlink" title="libuv是什么"></a>libuv是什么</h2><p>libuv是一个高性能的，事件驱动的I/O库，并且提供了跨平台（如windows, linux）的API。</p>
-<h2 id="libuv架构"><a href="#libuv架构" class="headerlink" title="libuv架构"></a>libuv架构</h2><p><img src="https://cdn.jsdelivr.net/gh/xiaodang/blog-image/img/20201112091634.png"></p>
-<p>左侧部分是网络I/O相关的请求，右侧部分是由文件I/O, DNS Ops以及User code组成的请求。对于Network I/O和以File I/O为代表的另一类请求，异步处理的机制是不一样的。</p>
-<p>对于Network I/O相关的请求， 根据OS平台不同，分别使用Linux上的epoll，OSX和BSD类OS上的kqueue，SunOS上的event ports以及Windows上的IOCP机制。</p>
-<p>而对于File I/O为代表的请求，则使用thread pool。利用thread pool的方式实现异步请求处理，在各类OS上都能获得很好的支持。</p>
-<h2 id="I-O-loop"><a href="#I-O-loop" class="headerlink" title="I/O loop"></a>I/O loop</h2>
-	
-
-	</div>
-  <a type="button" href="/2020/11/12/libuv初探/#more" class="btn btn-default more">Read More</a>
-</div>
-
--->
-<div class="entry">
-  <div class="row">
-	
-	
-		<p>今天研究了一下Node使用的异步IO框架libuv,下面一张图显示了livuv在Node架构中的位置。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/xiaodang/blog-image/img/20201112091257.png"></p>
-<h2 id="libuv是什么"><a href="#libuv是什么" class="headerlink" title="libuv是什么"></a>libuv是什么</h2><p>libuv是一个高性能的，事件驱动的I/O库，并且提供了跨平台（如windows, linux）的API。</p>
-<h2 id="libuv架构"><a href="#libuv架构" class="headerlink" title="libuv架构"></a>libuv架构</h2><p><img src="https://cdn.jsdelivr.net/gh/xiaodang/blog-image/img/20201112091634.png"></p>
-<p>左侧部分是网络I/O相关的请求，右侧部分是由文件I/O, DNS Ops以及User code组成的请求。对于Network I/O和以File I/O为代表的另一类请求，异步处理的机制是不一样的。</p>
-<p>对于Network I/O相关的请求， 根据OS平台不同，分别使用Linux上的epoll，OSX和BSD类OS上的kqueue，SunOS上的event ports以及Windows上的IOCP机制。</p>
-<p>而对于File I/O为代表的请求，则使用thread pool。利用thread pool的方式实现异步请求处理，在各类OS上都能获得很好的支持。</p>
-<h2 id="I-O-loop"><a href="#I-O-loop" class="headerlink" title="I/O loop"></a>I/O loop</h2>
-	
-	</div>
-  <a type="button" href="/2020/11/12/libuv初探/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -726,23 +724,23 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/redis/">redis<span>1</span></a></li>
+			<li><a href="/tags/逆向/">逆向<span>1</span></a></li>
+		
+			<li><a href="/tags/算法/">算法<span>2</span></a></li>
+		
+			<li><a href="/tags/macOS/">macOS<span>3</span></a></li>
+		
+			<li><a href="/tags/libuv/">libuv<span>1</span></a></li>
 		
 			<li><a href="/tags/Web/">Web<span>1</span></a></li>
 		
 			<li><a href="/tags/编译器/">编译器<span>1</span></a></li>
 		
-			<li><a href="/tags/libuv/">libuv<span>1</span></a></li>
-		
 			<li><a href="/tags/密码学/">密码学<span>1</span></a></li>
 		
+			<li><a href="/tags/redis/">redis<span>1</span></a></li>
+		
 			<li><a href="/tags/JavaScript/">JavaScript<span>1</span></a></li>
-		
-			<li><a href="/tags/算法/">算法<span>2</span></a></li>
-		
-			<li><a href="/tags/逆向/">逆向<span>1</span></a></li>
-		
-			<li><a href="/tags/macOS/">macOS<span>3</span></a></li>
 		
 		 
 		</ul>
@@ -754,6 +752,10 @@
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2021/03/23/时间标准UTC、GMT、ISO8 061/" ><i class="fa fa-file-o"></i>时间标准UTC、GMT、ISO 8061</a>
+      </li>
     
       <li>
         <a href="/2021/03/05/什么是霍夫曼编码-Huffman-Coding/" ><i class="fa fa-file-o"></i>什么是霍夫曼编码(Huffman Coding)</a>
@@ -769,10 +771,6 @@
     
       <li>
         <a href="/2021/02/03/TCP超时问题调试/" ><i class="fa fa-file-o"></i>TCP超时问题调试</a>
-      </li>
-    
-      <li>
-        <a href="/2020/12/20/如何调试招商银行App内置的webview/" ><i class="fa fa-file-o"></i>如何调试招商银行App内置的webview</a>
       </li>
     
   </ul>

@@ -1,0 +1,309 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>时间标准UTC、GMT、ISO 8061 | xiaodang&#39;s blog</title>
+  <meta name="author" content="xiaodang">
+  
+  <meta name="description" content="日常开发中，时间的格式化、存储、本地化经常让人疑惑，尤其是不同的编程语言中对于时间的处理方式又大相径庭，甚至同一个数据库中都有不同都存储方式，每次都要查文档。
+JavaScript中时间的格式化123456789# Converts a date to a string following the ISO 8601 Extended Format.&amp;gt; new Date(1616485415008).toISOString()&amp;#x27;2021-03-23T07:43:35.008Z&amp;#x27;# Converts a date to a string using the UTC timezone.&amp;gt; new Date(1616485415008).toUTCString()&amp;#x27;Tue, 23 Mar 2021 07:43:35 GMT&amp;#x27;# The toGMTString method converts a date to a string, using Internet GMT conventions.[Deprecated(被遗弃)]&amp;gt; new Date(1616485415008).toGMTString()&amp;#x27;Tue, 23 Mar 2021 07:43:35 GMT&amp;#x27;
+UTC VS GMTGMT和UTC是用来追踪时间的标准，而不是时间格式的标准。
+GMT时间是通过地球自转来测量时间，但是地球自转并不规律，而且正在缓慢减速，因此格林尼治平时基于天文观测本身的缺陷，已经被原子钟报时的协调世界时（UTC）所取代。UTC是目前最主要的世界时间标准。
+IOS-8061 时间格式的标准IOS-8061是表示日期和时间的国际标准。在日期和时间中，不同的标准可能需要不同的粒度级别，因此定义了六个级别。
+T作为分隔符用来区分日期和时间，Z代表UTC。
+六种格式如下:"> 
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="时间标准UTC、GMT、ISO 8061"/>
+  <meta property="og:site_name" content="xiaodang&#39;s blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="xiaodang&#39;s blog" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1XXD3NYJLC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1XXD3NYJLC');
+</script>
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+	style="background-color:transparent;">
+	<div class="container">
+		<!-- navbar-header -->
+		<button type="button" class=" navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="navbar-text">
+				MENU
+			</span>
+		</button>
+		<a class="navbar-brand" href="/">xiaodang&#39;s blog</a>
+		<div class="collapse navbar-collapse nav-menu" style="height: auto;position: absolute;top: 0px;right: 100px;">
+			<ul class="nav navbar-nav">
+				
+				<li>
+					<a href="/archives" title="All the articles.">
+						<i class=""></i>Archives
+					</a>
+				</li>
+				
+				<li>
+					<a href="/categories" title="All the categories.">
+						<i class=""></i>Categories
+					</a>
+				</li>
+				
+				<li>
+					<a href="/tags" title="All the tags.">
+						<i class=""></i>Tags
+					</a>
+				</li>
+				
+				<li>
+					<a href="/about" title="About me.">
+						<i class=""></i>About
+					</a>
+				</li>
+				
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 时间标准UTC、GMT、ISO 8061</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>日常开发中，时间的格式化、存储、本地化经常让人疑惑，尤其是不同的编程语言中对于时间的处理方式又大相径庭，甚至同一个数据库中都有不同都存储方式，每次都要查文档。</p>
+<h3 id="JavaScript中时间的格式化"><a href="#JavaScript中时间的格式化" class="headerlink" title="JavaScript中时间的格式化"></a>JavaScript中时间的格式化</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># Converts a date to a string following the ISO 8601 Extended Format.</span><br><span class="line">&gt; <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">1616485415008</span>).toISOString()</span><br><span class="line"><span class="string">&#x27;2021-03-23T07:43:35.008Z&#x27;</span></span><br><span class="line"># Converts a date to a string using the UTC timezone.</span><br><span class="line">&gt; <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">1616485415008</span>).toUTCString()</span><br><span class="line"><span class="string">&#x27;Tue, 23 Mar 2021 07:43:35 GMT&#x27;</span></span><br><span class="line"># The toGMTString method converts a date to a string, using Internet GMT conventions.[Deprecated(被遗弃)]</span><br><span class="line">&gt; <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">1616485415008</span>).toGMTString()</span><br><span class="line"><span class="string">&#x27;Tue, 23 Mar 2021 07:43:35 GMT&#x27;</span></span><br></pre></td></tr></table></figure>
+<h3 id="UTC-VS-GMT"><a href="#UTC-VS-GMT" class="headerlink" title="UTC VS GMT"></a>UTC VS GMT</h3><p><code>GMT</code>和<code>UTC</code>是用来追踪时间的标准，而不是时间格式的标准。</p>
+<p><code>GMT</code>时间是通过地球自转来测量时间，但是地球自转并不规律，而且正在缓慢减速，因此格林尼治平时基于天文观测本身的缺陷，已经被原子钟报时的协调世界时（<code>UTC</code>）所取代。<code>UTC</code>是目前最主要的世界时间标准。</p>
+<h3 id="IOS-8061-时间格式的标准"><a href="#IOS-8061-时间格式的标准" class="headerlink" title="IOS-8061 时间格式的标准"></a>IOS-8061 时间格式的标准</h3><p><code>IOS-8061</code>是表示日期和时间的国际标准。<br>在日期和时间中，不同的标准可能需要不同的粒度级别，因此定义了六个级别。</p>
+<p><code>T</code>作为分隔符用来区分日期和时间，<code>Z</code>代表UTC。</p>
+<p>六种格式如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">   Year:</span><br><span class="line">      YYYY (eg 1997)</span><br><span class="line">   Year and month:</span><br><span class="line">      YYYY-MM (eg 1997-07)</span><br><span class="line">   Complete date:</span><br><span class="line">      YYYY-MM-DD (eg 1997-07-16)</span><br><span class="line">   Complete date plus hours and minutes:</span><br><span class="line">      YYYY-MM-DDThh:mmTZD (eg 1997-07-16T19:20+01:00)</span><br><span class="line">   Complete date plus hours, minutes and seconds:</span><br><span class="line">      YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)</span><br><span class="line">   Complete date plus hours, minutes, seconds and a decimal fraction of a</span><br><span class="line">second</span><br><span class="line">      YYYY-MM-DDThh:mm:ss.sTZD (eg 1997-07-16T19:20:30.45+01:00)</span><br><span class="line">where:</span><br><span class="line"></span><br><span class="line">     YYYY &#x3D; four-digit year</span><br><span class="line">     MM   &#x3D; two-digit month (01&#x3D;January, etc.)</span><br><span class="line">     DD   &#x3D; two-digit day of month (01 through 31)</span><br><span class="line">     hh   &#x3D; two digits of hour (00 through 23) (am&#x2F;pm NOT allowed)</span><br><span class="line">     mm   &#x3D; two digits of minute (00 through 59)</span><br><span class="line">     ss   &#x3D; two digits of second (00 through 59)</span><br><span class="line">     s    &#x3D; one or more digits representing a decimal fraction of a second</span><br><span class="line">     TZD  &#x3D; time zone designator (Z or +hh:mm or -hh:mm)</span><br></pre></td></tr></table></figure>
+
+<p>当需要格式化时间字符串时，始终选择<code>IOS 8601</code>。</p>
+<p>参考:</p>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Date">MDN Web Docs:Date</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.w3.org/TR/NOTE-datetime">Date and Time Formats</a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/58847869/utc-vs-iso-format-for-time">utc-vs-iso-format-for-time</a></p>
+
+	  <div class="article-footer-copyright">
+    本博客采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议(CC BY-NC-SA 4.0) 发布.</a>
+    <br/>
+    转载请注明来自:<a href="https://xiaodang.github.io/" >xiaodang's blog</a>
+</div>
+
+	</div>
+
+	
+	<span id="/2021/03/23/%E6%97%B6%E9%97%B4%E6%A0%87%E5%87%86UTC%E3%80%81GMT%E3%80%81ISO8%20061/" class="leancloud-visitors view" data-flag-title="时间标准UTC、GMT、ISO 8061">
+		<em class="post-meta-item-text"> Page View </em> <i class="leancloud-visitors-count"></i>
+	</span>
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2021/03/05/什么是霍夫曼编码-Huffman-Coding/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+-->
+	
+		<section id="comments" class="comments">
+			<style>
+			.comments{margin:30px;padding:10px;background:rgb(0, 0, 0)}
+			@media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#000}}
+			</style>
+			<div id="vcomment" class="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+var valineConfig = {"enable":true,"appId":"CBHum5579cticmvCz5yUpSh0-gzGzoHsz","appKey":"Az1yTaXRAOJOnHgP8CLAe4su","placeholder":"提交评论时留下邮箱收到回复后将自动通知","visitor":true,"avatar":"monsterid","requiredFields":["nick","mail"]}
+valineConfig.el='#vcomment';
+new Valine(valineConfig);
+    // new Valine({
+    //     el: '#vcomment',
+    //     appId: "",
+    //     appKey: "",
+    //     placeholder: "提交评论时留下邮箱收到回复后将自动通知",
+    //     avatar:"monsterid",
+    //     visitor: "true",
+    //     requiredFields: "nick,mail".split(','),
+    // });
+</script>
+
+		</section>
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2021-03-23 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+		
+
+	</div>
+	
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2021 xiaodang's Blog
+  
+      powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. 
+      <!-- Theme <a href="https://github.com/Ares-X/hexo-theme-freemind.bithack" target="_blank">freemind.bithack</a>   -->
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
