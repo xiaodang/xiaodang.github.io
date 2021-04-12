@@ -43,6 +43,7 @@ frida --codeshare mrmacete/objc-method-observer -U  -p 6740
 observeClass()
 observeSomething("-[NSURLRequest *setValue:forHTTPHeaderField*]")
 
-
+查看deeplink
+[NSURL URLWithString:]
 
 
